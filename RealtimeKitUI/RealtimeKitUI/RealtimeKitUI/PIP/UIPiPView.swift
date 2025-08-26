@@ -212,7 +212,7 @@ extension RtkPipController: AVPictureInPictureControllerDelegate {
     ) {}
 
     func pictureInPictureControllerDidStartPictureInPicture(_: AVPictureInPictureController) {
-        print("[DYTE_PIP] Delegate PiP Did start.")
+        print("[RTK_PIP] Delegate PiP Did start.")
         videoViewToDisplayOnPip.localUserView.setParticipant(participant: localUser)
         videoViewToDisplayOnPip.otherUserView.setParticipant(participant: otherUser)
     }
@@ -220,12 +220,12 @@ extension RtkPipController: AVPictureInPictureControllerDelegate {
     open func pictureInPictureControllerWillStopPictureInPicture(
         _: AVPictureInPictureController,
     ) {
-        print("[DYTE_PIP] Delegate  PiP will stop shortly.")
+        print("[RTK_PIP] Delegate  PiP will stop shortly.")
         videoViewToDisplayOnPip.clean()
     }
 
     func pictureInPictureControllerDidStopPictureInPicture(_: AVPictureInPictureController) {
-        print("[DYTE_PIP] Delegate  PiP DID stop shortly.")
+        print("[RTK_PIP] Delegate  PiP DID stop shortly.")
     }
 
     open func pictureInPictureController(
@@ -233,7 +233,7 @@ extension RtkPipController: AVPictureInPictureControllerDelegate {
         failedToStartPictureInPictureWithError error: Error,
     ) {
         let error = error as NSError
-        print("[DYTE_PIP] Delegate Failed to start PiP with error: \(error.localizedDescription). \(error)")
+        print("[RTK_PIP] Delegate Failed to start PiP with error: \(error.localizedDescription). \(error)")
     }
 }
 
@@ -263,7 +263,7 @@ class RtkPipFrameRender: NSObject, RTKRTCVideoRenderer {
     var isReady = true
     func renderFrame(_ frame: RTKRTCVideoFrame?) {
         guard let frame else {
-            print("[DYTE_PIP] Frame passed is nil")
+            print("[RTK_PIP] Frame passed is nil")
             return
         }
 
@@ -296,7 +296,7 @@ class RtkPipFrameRender: NSObject, RTKRTCVideoRenderer {
         } else if let buffer = frame.buffer as? RTKRTCI420Buffer {
             return createPixelBuffer(from: buffer, targetSize: targetSize)
         }
-        print("[DYTE_PIP] buffer should be of type RTKRTCCVPixelBuffer")
+        print("[RTK_PIP] buffer should be of type RTKRTCCVPixelBuffer")
         return nil
     }
 
@@ -306,7 +306,7 @@ class RtkPipFrameRender: NSObject, RTKRTCVideoRenderer {
             // Use pixelBuffer as needed
             return createSampleBufferFromPixelBuffer(pixelBuffer: pixelBuffer)
         }
-        print("[DYTE_PIP] pixel buffer cannot be created")
+        print("[RTK_PIP] pixel buffer cannot be created")
         return nil
     }
 
@@ -429,7 +429,7 @@ class RtkPipFrameRender: NSObject, RTKRTCVideoRenderer {
                                                      formatDescriptionOut: &formatDescription)
 
         guard let formatDescription else {
-            print("[DYTE_PIP] not able to create format description")
+            print("[RTK_PIP] not able to create format description")
             return nil
         }
 
@@ -448,7 +448,7 @@ class RtkPipFrameRender: NSObject, RTKRTCVideoRenderer {
                                                         sampleTiming: &timingInfo,
                                                         sampleBufferOut: &sampleBuffer)
         if status != noErr {
-            print("[DYTE_PIP] Failed to create CMSampleBuffer: \(status)")
+            print("[RTK_PIP] Failed to create CMSampleBuffer: \(status)")
             return nil
         }
 

@@ -92,7 +92,7 @@ private extension RtkMoreMenuBottomSheet {
     }
 
     private func shareMeetingUrl() {
-        if let name = URL(string: "https://demo.dyte.io/v2/meeting?id=\(meeting.meta.meetingId)"), !name.absoluteString.isEmpty {
+        if let name = URL(string: "https://demo.realtime.cloudflare.com/meeting?id=\(meeting.meta.meetingId)"), !name.absoluteString.isEmpty {
             let objectsToShare = [name]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             presentingViewController.present(activityVC, animated: true, completion: nil)
