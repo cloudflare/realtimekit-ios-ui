@@ -81,12 +81,12 @@ public class WebinarParticipantViewControllerModel {
 
     private func refresh(completion: @escaping (Bool) -> Void) {
         dataSourceTableView.sections.removeAll()
-        let minimumParticpantCountToShowSearchBar = searchControllerMinimumParticipant
+        let minimumParticipantCountToShowSearchBar = searchControllerMinimumParticipant
 
         let sectionZero = getWaitlistSection()
         let sectionOne = getJoinStageRequestSection()
-        let sectionTwo = getOnStageSection(minimumParticpantCountToShowSearchBar: minimumParticpantCountToShowSearchBar)
-        let sectionThree = getInCallViewers(minimumParticpantCountToShowSearchBar: minimumParticpantCountToShowSearchBar)
+        let sectionTwo = getOnStageSection(minimumParticipantCountToShowSearchBar: minimumParticipantCountToShowSearchBar)
+        let sectionThree = getInCallViewers(minimumParticipantCountToShowSearchBar: minimumParticipantCountToShowSearchBar)
 
         dataSourceTableView.sections.append(sectionZero)
         dataSourceTableView.sections.append(sectionOne)
@@ -163,7 +163,7 @@ extension WebinarParticipantViewControllerModel {
         return sectionOne
     }
 
-    private func getOnStageSection(minimumParticpantCountToShowSearchBar: Int) -> BaseConfiguratorSection<CollectionTableConfigurator> {
+    private func getOnStageSection(minimumParticipantCountToShowSearchBar: Int) -> BaseConfiguratorSection<CollectionTableConfigurator> {
         let arrJoinedParticipants = rtkClient.participants.joined
         let selfIsOnStage = rtkClient.localUser.stageStatus == StageStatus.onStage
 
@@ -190,7 +190,7 @@ extension WebinarParticipantViewControllerModel {
             }
             sectionTwo.insert(TableItemConfigurator<TitleTableViewCell, TitleTableViewCellModel>(model: TitleTableViewCellModel(title: "On stage\(participantCount)")))
 
-            if onStageParticipants.count > minimumParticpantCountToShowSearchBar {
+            if onStageParticipants.count > minimumParticipantCountToShowSearchBar {
                 sectionTwo.insert(TableItemConfigurator<SearchTableViewCell, SearchTableViewCellModel>(model: SearchTableViewCellModel(placeHolder: "Search Participant")))
             }
 
@@ -237,7 +237,7 @@ extension WebinarParticipantViewControllerModel {
         return sectionTwo
     }
 
-    private func getInCallViewers(minimumParticpantCountToShowSearchBar: Int) -> BaseConfiguratorSection<CollectionTableConfigurator> {
+    private func getInCallViewers(minimumParticipantCountToShowSearchBar: Int) -> BaseConfiguratorSection<CollectionTableConfigurator> {
         var viewerRemoteParticipants = [RtkRemoteParticipant]()
         viewerRemoteParticipants.append(contentsOf: rtkClient.stage.viewers)
         let shouldShowSelfInViewers = rtkClient.localUser.stageStatus != StageStatus.onStage
@@ -257,7 +257,7 @@ extension WebinarParticipantViewControllerModel {
             }
             sectionTwo.insert(TableItemConfigurator<TitleTableViewCell, TitleTableViewCellModel>(model: TitleTableViewCellModel(title: "Viewers\(participantCount)")))
 
-            if allViewerParticipants.count > minimumParticpantCountToShowSearchBar {
+            if allViewerParticipants.count > minimumParticipantCountToShowSearchBar {
                 sectionTwo.insert(TableItemConfigurator<SearchTableViewCell, SearchTableViewCellModel>(model: SearchTableViewCellModel(placeHolder: "Search Viewers")))
             }
 

@@ -30,15 +30,15 @@ class PipUserView: UIView {
     }()
 
     private var frameRenderer: RtkPipFrameRender?
-    private let infoLable: RtkLabel
+    private let infoLabel: RtkLabel
     private var participant: RtkMeetingParticipant?
     private var flipFrameHorizonatlly: Bool
 
     init(flipFrameHorizonatlly: Bool) {
         self.flipFrameHorizonatlly = flipFrameHorizonatlly
-        infoLable = RtkUIUtility.createLabel()
-        infoLable.font = UIFont.systemFont(ofSize: 12)
-        infoLable.numberOfLines = 2
+        infoLabel = RtkUIUtility.createLabel()
+        infoLabel.font = UIFont.systemFont(ofSize: 12)
+        infoLabel.numberOfLines = 2
         super.init(frame: .zero)
         createSubView()
     }
@@ -50,9 +50,9 @@ class PipUserView: UIView {
 
     private func createSubView() {
         addSubViews(profileAvatarView)
-        addSubview(infoLable)
+        addSubview(infoLabel)
         addSubview(videoDisplayView)
-        infoLable.set(.centerView(self), .leading(self, 20, .greaterThanOrEqual))
+        infoLabel.set(.centerView(self), .leading(self, 20, .greaterThanOrEqual))
         profileAvatarView.set(.width(30), .height(30), .centerView(self))
         videoDisplayView.set(.fillSuperView(self))
     }
@@ -107,12 +107,12 @@ extension PipUserView: RtkParticipantUpdateListener {
 
     func updateVideoView() {
         if participant == nil {
-            infoLable.isHidden = false
+            infoLabel.isHidden = false
             profileAvatarView.isHidden = true
             videoDisplayView.isHidden = true
         } else {
             if participant?.videoEnabled == false {
-                infoLable.isHidden = true
+                infoLabel.isHidden = true
                 profileAvatarView.isHidden = false
                 videoDisplayView.isHidden = true
             } else {

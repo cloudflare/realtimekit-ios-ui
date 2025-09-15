@@ -101,23 +101,23 @@ public protocol PluginScreenShareTabButtonDesignDependency: BaseAppearance {
     var normalStateBackGroundColor: TextColorToken.Background.Shade { get }
     var cornerRadius: BorderRadiusToken.RadiusType { get }
     var titleColor: TextColorToken.Background.Shade { get }
-    var acitivityInidicatorColor: TextColorToken.Background.Shade { get }
+    var activityIndicatorColor: TextColorToken.Background.Shade { get }
 }
 
 public class PluginScreenShareTabButtonDesignDependencyModel: PluginScreenShareTabButtonDesignDependency {
-    public var desingLibrary: RtkDesignTokens
+    public var designLibrary: RtkDesignTokens
     public var selectedStateBackGroundColor: TextColorToken.Brand.Shade
     public var normalStateBackGroundColor: TextColorToken.Background.Shade
     public var cornerRadius: BorderRadiusToken.RadiusType = .rounded
     public var titleColor: TextColorToken.Background.Shade
-    public var acitivityInidicatorColor: TextColorToken.Background.Shade
+    public var activityIndicatorColor: TextColorToken.Background.Shade
 
     public required init(designLibrary: RtkDesignTokens = DesignLibrary.shared) {
-        desingLibrary = designLibrary
+        self.designLibrary = designLibrary
         selectedStateBackGroundColor = designLibrary.color.textColor.onBrand.shade500
         normalStateBackGroundColor = designLibrary.color.textColor.onBackground.shade700
         titleColor = designLibrary.color.textColor.onBackground.shade900
-        acitivityInidicatorColor = designLibrary.color.textColor.onBackground.shade900
+        activityIndicatorColor = designLibrary.color.textColor.onBackground.shade900
     }
 }
 
@@ -141,7 +141,7 @@ public class RtkPluginScreenShareTabButton: UIButton {
         self.appearance = appearance
         normalTitle = title
         super.init(frame: .zero)
-        layer.cornerRadius = appearance.desingLibrary.borderRadius.getRadius(size: .one, radius: appearance.cornerRadius)
+        layer.cornerRadius = appearance.designLibrary.borderRadius.getRadius(size: .one, radius: appearance.cornerRadius)
         createButton()
         backgroundColor = appearance.normalStateBackGroundColor
         clipsToBounds = true
@@ -233,7 +233,7 @@ extension RtkPluginScreenShareTabButton {
             baseIndicatorView.set(.fillSuperView(self))
             baseActivityIndicatorView = baseIndicatorView
         }
-        baseActivityIndicatorView?.indicatorView.color = appearance.acitivityInidicatorColor
+        baseActivityIndicatorView?.indicatorView.color = appearance.activityIndicatorColor
         baseActivityIndicatorView?.indicatorView.startAnimating()
         baseActivityIndicatorView?.backgroundColor = backgroundColor
         bringSubviewToFront(baseActivityIndicatorView!)

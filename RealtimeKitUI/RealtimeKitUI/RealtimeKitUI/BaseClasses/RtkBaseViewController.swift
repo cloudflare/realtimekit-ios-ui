@@ -82,6 +82,6 @@ open class RtkBaseViewController: UIViewController, AdaptableUI {
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         view.setNeedsUpdateConstraints()
-        setOrientationContraintAsDeactive()
+        setOrientationConstraintAsInactive()
     }
 }

@@ -76,7 +76,7 @@ public class RtkParticipantTileView: RtkPeerView {
     override public func layoutSubviews() {
         super.layoutSubviews()
         updatePinViewHeightConstraint()
-        updateAvatorViewHeightConstraint()
+        updateAvatarViewHeightConstraint()
         updateNameTagViewHeightConstraint()
     }
 
@@ -104,7 +104,7 @@ public class RtkParticipantTileView: RtkPeerView {
 }
 
 extension RtkParticipantTileView {
-    private func updateAvatorViewHeightConstraint() {
+    private func updateAvatarViewHeightConstraint() {
         var width = bounds.height * 0.4
         if bounds.height > bounds.width {
             width = bounds.width * 0.4

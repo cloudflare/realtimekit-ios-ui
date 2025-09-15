@@ -9,7 +9,7 @@ import UIKit
 
 public class RtkDropdown<Model: PickerCellModel>: UIView {
     let borderRadiusType: BorderRadiusToken.RadiusType = AppTheme.shared.cornerRadiusTypeDropDown ?? .rounded
-    let borderWidhtType: BorderWidthToken.Width = AppTheme.shared.borderSizeWidthTypeDropDown ?? .thin
+    let borderWidthType: BorderWidthToken.Width = AppTheme.shared.borderSizeWidthTypeDropDown ?? .thin
 
     let borderColor = DesignLibrary.shared.color.brand.shade600
     let backGroundColor = DesignLibrary.shared.color.background.shade700
@@ -93,7 +93,7 @@ public class RtkDropdown<Model: PickerCellModel>: UIView {
         tapButton.addTarget(self, action: #selector(tapButtonClick), for: .touchUpInside)
 
         lblBaseView.layer.cornerRadius = DesignLibrary.shared.borderRadius.getRadius(size: .one, radius: borderRadiusType)
-        lblBaseView.layer.borderWidth = DesignLibrary.shared.borderSize.getWidth(size: .one, width: borderWidhtType)
+        lblBaseView.layer.borderWidth = DesignLibrary.shared.borderSize.getWidth(size: .one, width: borderWidthType)
         lblBaseView.layer.borderColor = borderColor.cgColor
         lblBaseView.backgroundColor = backGroundColor
         lblHeader.isHidden = lblHeader.text?.isEmpty ?? true

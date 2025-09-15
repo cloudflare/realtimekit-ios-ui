@@ -11,21 +11,21 @@ public protocol RtkControlBarButtonAppearance: BaseAppearance {
     var cornerRadius: BorderRadiusToken.RadiusType { get }
     var selectedStateTintColor: TextColorToken.Background.Shade { get }
     var normalStateTintColor: TextColorToken.Background.Shade { get }
-    var acitivityInidicatorColor: TextColorToken.Background.Shade { get }
+    var activityIndicatorColor: TextColorToken.Background.Shade { get }
 }
 
 public class RtkControlBarButtonAppearanceModel: RtkControlBarButtonAppearance {
     public var selectedStateTintColor: TextColorToken.Background.Shade
     public var normalStateTintColor: TextColorToken.Background.Shade
-    public var acitivityInidicatorColor: TextColorToken.Background.Shade
-    public var desingLibrary: RtkDesignTokens
+    public var activityIndicatorColor: TextColorToken.Background.Shade
+    public var designLibrary: RtkDesignTokens
     public var cornerRadius: BorderRadiusToken.RadiusType = .rounded
 
     public required init(designLibrary: RtkDesignTokens = DesignLibrary.shared) {
-        desingLibrary = designLibrary
+        self.designLibrary = designLibrary
         selectedStateTintColor = designLibrary.color.textColor.onBackground.shade1000
         normalStateTintColor = designLibrary.color.textColor.onBackground.shade1000
-        acitivityInidicatorColor = designLibrary.color.textColor.onBackground.shade900
+        activityIndicatorColor = designLibrary.color.textColor.onBackground.shade900
     }
 }
 
@@ -52,18 +52,18 @@ open class RtkControlBarButton: UIButton {
         normalStateTintColor = self.appearance.normalStateTintColor
         selectedStateTintColor = self.appearance.selectedStateTintColor
         super.init(frame: .zero)
-        layer.cornerRadius = self.appearance.desingLibrary.borderRadius.getRadius(size: .one, radius: self.appearance.cornerRadius)
+        layer.cornerRadius = self.appearance.designLibrary.borderRadius.getRadius(size: .one, radius: self.appearance.cornerRadius)
         createButton()
-        backgroundColor = self.appearance.desingLibrary.color.background.shade900
+        backgroundColor = self.appearance.designLibrary.color.background.shade900
         clipsToBounds = true
     }
 
     override public var isEnabled: Bool {
         didSet {
             if isEnabled == false {
-                btnImageView?.tintColor = appearance.desingLibrary.color.textColor.onBackground.shade600
+                btnImageView?.tintColor = appearance.designLibrary.color.textColor.onBackground.shade600
             } else {
-                btnImageView?.tintColor = appearance.desingLibrary.color.textColor.onBackground.shade1000
+                btnImageView?.tintColor = appearance.designLibrary.color.textColor.onBackground.shade1000
             }
         }
     }
@@ -113,9 +113,9 @@ open class RtkControlBarButton: UIButton {
         let buttonsComponent = getLabelAndImageOnlyView()
         btnTitle = buttonsComponent.title
         btnTitle?.setTextWhenInsideStackView(text: normalTitle)
-        btnTitle?.textColor = appearance.desingLibrary.color.textColor.onBackground.shade1000
+        btnTitle?.textColor = appearance.designLibrary.color.textColor.onBackground.shade1000
         btnImageView = buttonsComponent.imageView
-        btnImageView?.tintColor = appearance.desingLibrary.color.textColor.onBackground.shade1000
+        btnImageView?.tintColor = appearance.designLibrary.color.textColor.onBackground.shade1000
         baseView.addSubview(buttonsComponent.stackView)
         buttonsComponent.stackView.set(.top(baseView, 0.0, .greaterThanOrEqual),
                                        .centerY(baseView),
@@ -186,7 +186,7 @@ extension RtkControlBarButton {
             }
         }
         if baseActivityIndicatorView?.isHidden == true {
-            baseActivityIndicatorView?.indicatorView.color = appearance.acitivityInidicatorColor
+            baseActivityIndicatorView?.indicatorView.color = appearance.activityIndicatorColor
             baseActivityIndicatorView?.indicatorView.startAnimating()
             baseActivityIndicatorView?.backgroundColor = backgroundColor
             bringSubviewToFront(baseActivityIndicatorView!)

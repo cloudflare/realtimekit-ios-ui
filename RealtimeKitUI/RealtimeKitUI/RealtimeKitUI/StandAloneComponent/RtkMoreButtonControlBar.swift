@@ -106,7 +106,7 @@ open class RtkMoreButtonControlBar: RtkControlBarButton {
         if pending > 0 {
             message = "\(pending)"
         }
-        menus.append(contentsOf: [.particpants(notificationMessage: message), .cancel])
+        menus.append(contentsOf: [.participants(notificationMessage: message), .cancel])
         return menus
     }
 

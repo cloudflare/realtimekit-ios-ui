@@ -55,7 +55,7 @@ class RtkMoreMenuBottomSheet {
                 launchSettingScreen()
             case .plugins:
                 onPluginTapped()
-            case .particpants:
+            case .participants:
                 launchParticipantScreen()
             default:
                 print("Not Supported for now")

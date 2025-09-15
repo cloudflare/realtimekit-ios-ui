@@ -98,7 +98,7 @@ extension RtkSettingViewController {
                                                     baseView.get(.centerX)!,
                                                     baseView.get(.leading)!,
                                                     baseView.get(.centerY)!])
-            setPortraitContraintAsDeactive()
+            setPortraitConstraintAsInactive()
         }
 
         func addLandscapeConstraintToBaseView() {
@@ -110,7 +110,7 @@ extension RtkSettingViewController {
                                                      baseView.get(.leading)!,
                                                      baseView.get(.trailing)!])
 
-            setLandscapeContraintAsDeactive()
+            setLandscapeConstraintAsInactive()
         }
 
         addPortraitConstraintToBaseView()
@@ -133,7 +133,7 @@ extension RtkSettingViewController {
                                                     selfPeerView.get(.top)!,
                                                     selfPeerView.get(.leading)!,
                                                     selfPeerView.get(.trailing)!])
-            setPortraitContraintAsDeactive()
+            setPortraitConstraintAsInactive()
         }
 
         func addLandscapeConstraintToPeerView() {
@@ -149,7 +149,7 @@ extension RtkSettingViewController {
             landscapeConstraints.append(contentsOf: [selfPeerView.get(.top)!,
                                                      selfPeerView.get(.leading)!,
                                                      selfPeerView.get(.centerY)!])
-            setLandscapeContraintAsDeactive()
+            setLandscapeConstraintAsInactive()
         }
         addPortraitConstraintToPeerView()
         addLandscapeConstraintToPeerView()
@@ -183,7 +183,7 @@ extension RtkSettingViewController {
                 btnStackView.get(.leading)!,
                 btnStackView.get(.centerY)!,
             ])
-            setPortraitContraintAsDeactive()
+            setPortraitConstraintAsInactive()
         }
 
         func addLandscapeConstraintToBtnStackView() {
@@ -209,7 +209,7 @@ extension RtkSettingViewController {
                                                      wrapperView.get(.bottom)!,
                                                      wrapperView.get(.trailing)!,
                                                      wrapperView.get(.leading)!])
-            setLandscapeContraintAsDeactive()
+            setLandscapeConstraintAsInactive()
         }
 
         addPortraitConstraintToBtnStackView()

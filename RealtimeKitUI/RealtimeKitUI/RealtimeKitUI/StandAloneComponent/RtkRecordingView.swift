@@ -21,10 +21,10 @@ public class RtkRecordingViewAppearanceModel: RtkRecordingViewAppearance {
 
     public var imageBackGroundColor: StatusColor.Shade
 
-    public var desingLibrary: RtkDesignTokens
+    public var designLibrary: RtkDesignTokens
 
     public required init(designLibrary: RtkDesignTokens) {
-        desingLibrary = designLibrary
+        self.designLibrary = designLibrary
         font = UIFont.boldSystemFont(ofSize: 12)
         textColor = designLibrary.color.status.danger
         imageBackGroundColor = designLibrary.color.status.danger

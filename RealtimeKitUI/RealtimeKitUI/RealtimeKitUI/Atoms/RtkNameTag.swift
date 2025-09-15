@@ -9,7 +9,7 @@ import RealtimeKit
 import UIKit
 
 public protocol BaseAppearance {
-    var desingLibrary: RtkDesignTokens { get }
+    var designLibrary: RtkDesignTokens { get }
     init(designLibrary: RtkDesignTokens)
 }
 
@@ -31,10 +31,10 @@ public class RtkNameTagAppearanceModel: RtkNameTagAppearance {
     public var titleFont: UIFont
     public var subTitleFont: UIFont
     public var paddings: UIEdgeInsets
-    public var desingLibrary: RtkDesignTokens
+    public var designLibrary: RtkDesignTokens
 
     public required init(designLibrary: RtkDesignTokens = DesignLibrary.shared) {
-        desingLibrary = designLibrary
+        self.designLibrary = designLibrary
         paddings = UIEdgeInsets(top: designLibrary.space.space1,
                                 left: designLibrary.space.space1,
                                 bottom: designLibrary.space.space1,
@@ -100,7 +100,7 @@ public class RtkNameTag: BaseAtomView {
         imageView.get(.height)?.constant = newHeight
     }
 
-    private var lableStackView: BaseStackView = {
+    private var labelStackView: BaseStackView = {
         let stackView = RtkUIUtility.createStackView(axis: .vertical, distribution: .fillEqually, spacing: 4.0)
         return stackView
     }()
@@ -147,14 +147,14 @@ extension RtkNameTag {
         imageView.clipsToBounds = true
         imageView.set(.fillSuperView(wrappedImageView))
         baseStackView.addArrangedSubview(wrappedImageView)
-        baseStackView.addArrangedSubview(lableStackView)
-        lableStackView.addArrangedSubview(lblTitle)
+        baseStackView.addArrangedSubview(labelStackView)
+        labelStackView.addArrangedSubview(lblTitle)
         lblTitle.text = titleText
         imageView.image = image.image
         if subtitle.isEmpty == false {
             lblSubTitle = RtkUIUtility.createLabel(text: subtitle)
             lblSubTitle?.adjustsFontSizeToFitWidth = true
-            lableStackView.addArrangedSubview(lblSubTitle!)
+            labelStackView.addArrangedSubview(lblSubTitle!)
         }
         addConstraints()
         applyDesign(appearance: appearance)
@@ -163,7 +163,7 @@ extension RtkNameTag {
     public func applyDesign(appearance: RtkNameTagAppearance) {
         self.appearance = appearance
         backgroundColor = appearance.backGroundColor
-        layer.cornerRadius = appearance.desingLibrary.borderRadius.getRadius(size: .one, radius: appearance.cornerRadius)
+        layer.cornerRadius = appearance.designLibrary.borderRadius.getRadius(size: .one, radius: appearance.cornerRadius)
         lblTitle.textColor = appearance.titleTextColorToken
         lblSubTitle?.textColor = appearance.subTitleTextColorToken
     }

@@ -58,20 +58,20 @@ protocol Molecule: AutoLayoutable {
 public protocol AdaptableUI {
     var portraitConstraints: [NSLayoutConstraint] { get }
     var landscapeConstraints: [NSLayoutConstraint] { get }
-    func applyConstraintAsPerOrientation(isLandscape: Bool, onPortait: () -> Void, onLandscape: () -> Void)
+    func applyConstraintAsPerOrientation(isLandscape: Bool, onPortrait: () -> Void, onLandscape: () -> Void)
 }
 
 public extension AdaptableUI {
-    func setOrientationContraintAsDeactive() {
-        setPortraitContraintAsDeactive()
-        setLandscapeContraintAsDeactive()
+    func setOrientationConstraintAsInactive() {
+        setPortraitConstraintAsInactive()
+        setLandscapeConstraintAsInactive()
     }
 
-    func setPortraitContraintAsDeactive() {
+    func setPortraitConstraintAsInactive() {
         portraitConstraints.forEach { $0.isActive = false }
     }
 
-    func setLandscapeContraintAsDeactive() {
+    func setLandscapeConstraintAsInactive() {
         landscapeConstraints.forEach { $0.isActive = false }
     }
 
@@ -83,27 +83,27 @@ public extension AdaptableUI {
         applyOnlyConstraintAsPerOrientation(isLandscape: UIScreen.isLandscape())
     }
 
-    private func applyOnlyConstraintAsPerOrientation(isLandscape: Bool, onPortait: () -> Void = {}, onLandscape: () -> Void = {}) {
+    private func applyOnlyConstraintAsPerOrientation(isLandscape: Bool, onPortrait: () -> Void = {}, onLandscape: () -> Void = {}) {
         if isLandscape {
             landscapeConstraints.forEach { $0.isActive = true }
             onLandscape()
         } else {
             portraitConstraints.forEach { $0.isActive = true }
-            onPortait()
+            onPortrait()
         }
     }
 
     func applyConstraintAsPerOrientation(isLandscape: Bool) {
-        applyConstraintAsPerOrientation(isLandscape: isLandscape, onPortait: {}, onLandscape: {})
+        applyConstraintAsPerOrientation(isLandscape: isLandscape, onPortrait: {}, onLandscape: {})
     }
 
-    func applyConstraintAsPerOrientation(isLandscape: Bool, onPortait: () -> Void = {}, onLandscape: () -> Void = {}) {
-        setOrientationContraintAsDeactive()
-        applyOnlyConstraintAsPerOrientation(isLandscape: isLandscape, onPortait: onPortait, onLandscape: onLandscape)
+    func applyConstraintAsPerOrientation(isLandscape: Bool, onPortrait: () -> Void = {}, onLandscape: () -> Void = {}) {
+        setOrientationConstraintAsInactive()
+        applyOnlyConstraintAsPerOrientation(isLandscape: isLandscape, onPortrait: onPortrait, onLandscape: onLandscape)
     }
 
-    func applyConstraintAsPerOrientation(onPortait: () -> Void = {}, onLandscape: () -> Void = {}) {
-        applyConstraintAsPerOrientation(isLandscape: UIScreen.isLandscape(), onPortait: onPortait, onLandscape: onLandscape)
+    func applyConstraintAsPerOrientation(onPortrait: () -> Void = {}, onLandscape: () -> Void = {}) {
+        applyConstraintAsPerOrientation(isLandscape: UIScreen.isLandscape(), onPortrait: onPortrait, onLandscape: onLandscape)
     }
 
     func isLandscape(size: CGSize) -> Bool {

@@ -19,11 +19,11 @@ public protocol RtkControlBarAppearance: BaseAppearance {
 }
 
 public class RtkControlBarAppearanceModel: RtkControlBarAppearance {
-    public var desingLibrary: RtkDesignTokens
+    public var designLibrary: RtkDesignTokens
 
     public required init(designLibrary: RtkDesignTokens = DesignLibrary.shared) {
-        desingLibrary = designLibrary
-        backgroundColor = desingLibrary.color.background.shade900
+        self.designLibrary = designLibrary
+        backgroundColor = designLibrary.color.background.shade900
     }
 
     public var backgroundColor: BackgroundColorToken.Shade
@@ -79,14 +79,14 @@ open class RtkTabBar: UIView, AdaptableUI {
         setWidth(extra: extra)
     }
 
-    private func removeHeightContraint() {
+    private func removeHeightConstraint() {
         if let constraint = heightConstraint {
             constraint.isActive = false
             removeConstraint(constraint)
         }
     }
 
-    private func removeWidthContraint() {
+    private func removeWidthConstraint() {
         if let constraint = widthLandscapeConstraint {
             constraint.isActive = false
             removeConstraint(constraint)
@@ -101,8 +101,8 @@ open class RtkTabBar: UIView, AdaptableUI {
     }
 
     private func removeHeightWidthConstraint() {
-        removeHeightContraint()
-        removeWidthContraint()
+        removeHeightConstraint()
+        removeWidthConstraint()
     }
 
     @available(*, unavailable)
@@ -146,7 +146,7 @@ open class RtkTabBar: UIView, AdaptableUI {
 
     func onRotationChange() {
         removeHeightWidthConstraint()
-        setOrientationContraintAsDeactive()
+        setOrientationConstraintAsInactive()
         setNeedsUpdateConstraints()
     }
 

@@ -36,7 +36,7 @@ public class BorderWidthToken {
         if width == .thin {
             return getSizeForThinWidth(size: size)
         } else if width == .fat {
-            return getSizeForFatWidht(size: size)
+            return getSizeForFatWidth(size: size)
         }
         return 0.0
     }
@@ -58,7 +58,7 @@ extension BorderWidthToken {
 }
 
 extension BorderWidthToken {
-    private func getSizeForFatWidht(size: Size) -> CGFloat {
+    private func getSizeForFatWidth(size: Size) -> CGFloat {
         switch size {
         case .zero:
             0.0 * fatFactor

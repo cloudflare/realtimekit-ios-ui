@@ -13,12 +13,12 @@ protocol RtkPeerViewDesignDependency: BaseAppearance {
 }
 
 class RtkPeerViewViewModel: RtkPeerViewDesignDependency {
-    var desingLibrary: RtkDesignTokens
+    var designLibrary: RtkDesignTokens
     var backgroundColor: BackgroundColorToken.Shade
     var cornerRadius: BorderRadiusToken.RadiusType = .rounded
 
     required init(designLibrary: RtkDesignTokens = DesignLibrary.shared) {
-        desingLibrary = designLibrary
+        self.designLibrary = designLibrary
         backgroundColor = designLibrary.color.background.video
     }
 }
@@ -30,7 +30,7 @@ public class RtkPeerView: BaseView {
         self.appearance = appearance
         super.init(frame: .zero)
         backgroundColor = self.appearance.backgroundColor
-        layer.cornerRadius = self.appearance.desingLibrary.borderRadius.getRadius(size: .two, radius: self.appearance.cornerRadius)
+        layer.cornerRadius = self.appearance.designLibrary.borderRadius.getRadius(size: .two, radius: self.appearance.cornerRadius)
         layer.masksToBounds = true
     }
 

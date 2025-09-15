@@ -31,7 +31,7 @@ private class RtkCustomTextField: UITextField {
 
 public class RtkTextField: BaseAtomView {
     let borderRadiusType: BorderRadiusToken.RadiusType = AppTheme.shared.cornerRadiusTypeNameTextField ?? .rounded
-    let borderWidhtType: BorderWidthToken.Width = AppTheme.shared.borderSizeWidthTypeTextField ?? .thin
+    let borderWidthType: BorderWidthToken.Width = AppTheme.shared.borderSizeWidthTypeTextField ?? .thin
 
     var borderColor = DesignLibrary.shared.color.brand.shade600.cgColor
     let backGroundColor: UIColor
@@ -94,7 +94,7 @@ public class RtkTextField: BaseAtomView {
         textField.layer.cornerRadius = DesignLibrary.shared.borderRadius.getRadius(size: .one,
                                                                                    radius: borderRadiusType)
         textField.layer.borderWidth = DesignLibrary.shared.borderSize.getWidth(size: .one,
-                                                                               width: borderWidhtType)
+                                                                               width: borderWidthType)
         textField.layer.borderColor = borderColor
         textField.backgroundColor = backGroundColor
         textField.textColor = textFieldTextColorToken

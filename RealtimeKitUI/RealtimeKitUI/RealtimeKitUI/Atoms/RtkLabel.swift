@@ -17,10 +17,10 @@ public class RtkTextAppearanceModel: RtkTextAppearance {
 
     public var font: UIFont
 
-    public var desingLibrary: RtkDesignTokens
+    public var designLibrary: RtkDesignTokens
 
     public required init(designLibrary: RtkDesignTokens = DesignLibrary.shared) {
-        desingLibrary = designLibrary
+        self.designLibrary = designLibrary
         textColor = designLibrary.color.textColor.onBackground.shade1000
         font = UIFont.systemFont(ofSize: 16)
     }

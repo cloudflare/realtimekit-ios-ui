@@ -195,7 +195,7 @@ public class RtkSetupViewController: RtkBaseViewController, KeyboardObservable, 
 
     private let completion: () -> Void
 
-    private let meetinInfoV2: RtkMeetingInfo?
+    private let meetingInfo: RtkMeetingInfo?
     private let rtkClient: RealtimeKitClient
     private var waitingRoomView: WaitingRoomView?
     private let activityIndicator = UIActivityIndicatorView(style: .large)
@@ -203,7 +203,7 @@ public class RtkSetupViewController: RtkBaseViewController, KeyboardObservable, 
 
     public init(meetingInfo: RtkMeetingInfo, meeting: RealtimeKitClient, completion: @escaping () -> Void) {
         rtkClient = meeting
-        meetinInfoV2 = meetingInfo
+        self.meetingInfo = meetingInfo
         self.completion = completion
         super.init(meeting: meeting)
     }
@@ -224,7 +224,7 @@ public class RtkSetupViewController: RtkBaseViewController, KeyboardObservable, 
     private var bottomStackView: UIStackView!
 
     private func rtkClientInit() {
-        if let info = meetinInfoV2 {
+        if let info = meetingInfo {
             viewModel = SetupViewModel(rtkClient: rtkClient, delegate: self, meetingInfo: info)
         }
     }
@@ -315,13 +315,13 @@ extension RtkSetupViewController {
     }
 
     private func addConstraintForBaseView() {
-        addPortaitConstraintsForBaseView()
-        setPortraitContraintAsDeactive()
+        addPortraitConstraintsForBaseView()
+        setPortraitConstraintAsInactive()
         addLandscapeConstraintForBaseView()
-        setLandscapeContraintAsDeactive()
+        setLandscapeConstraintAsInactive()
     }
 
-    private func addPortaitConstraintsForBaseView() {
+    private func addPortraitConstraintsForBaseView() {
         baseView.set(.sameLeadingTrailing(view, spaceToken.space8),
                      .centerY(view),
                      .top(view, spaceToken.space8, .greaterThanOrEqual))
@@ -389,9 +389,9 @@ extension RtkSetupViewController {
 
     private func addConstraintForCreatingMeetingSetUpUI() {
         addPortraintConstraintForCreateMeetingSetupUI()
-        setPortraitContraintAsDeactive()
+        setPortraitConstraintAsInactive()
         addLandscapeConstraintForCreateMeetingSetupUI()
-        setLandscapeContraintAsDeactive()
+        setLandscapeConstraintAsInactive()
     }
 
     private func addPortraintConstraintForCreateMeetingSetupUI() {
@@ -491,7 +491,7 @@ extension RtkSetupViewController {
     private func createBtnView() -> BaseStackView {
         let stackView = RtkUIUtility.createStackView(axis: .horizontal, spacing: DesignLibrary.shared.space.space6)
 
-        if let info = meetinInfoV2 {
+        if let info = meetingInfo {
             btnMic.isSelected = !info.enableAudio
             btnVideo.isSelected = !info.enableVideo
         }

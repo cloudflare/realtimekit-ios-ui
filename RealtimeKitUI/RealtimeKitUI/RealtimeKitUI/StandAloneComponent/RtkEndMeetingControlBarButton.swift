@@ -22,7 +22,7 @@ open class RtkEndMeetingControlBarButton: RtkControlBarButton {
         super.init(image: RtkImage(image: ImageProvider.image(named: "icon_end_meeting_tabbar")), title: "", appearance: appearance)
         addTarget(self, action: #selector(onClick(button:)), for: .touchUpInside)
         DispatchQueue.main.async {
-            self.backgroundColor = appearance.desingLibrary.color.status.danger
+            self.backgroundColor = appearance.designLibrary.color.status.danger
             self.set(.width(48),
                      .height(48))
         }

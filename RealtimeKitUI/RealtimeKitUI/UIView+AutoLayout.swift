@@ -121,9 +121,9 @@ class ConstraintCreator: NSObject {
     }
 
     // Use this method to equate constraints between any two attributes of two views
-    ////Param - attibute - the attribute of main view
+    ////Param - attribute - the attribute of main view
     ////Param - view - secondary view
-    ////Param - toAttibute - the attribute of secondary view
+    ////Param - toAttribute - the attribute of secondary view
     ////Param  - relation - the Layout constraint relation
     ////Param - constant - the height to be fixed
     ////Param - multiplier - multiplier for the constraint

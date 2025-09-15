@@ -14,7 +14,7 @@ public enum MenuType {
     case chat(notificationMessage: String)
     case plugins
     case settings
-    case particpants(notificationMessage: String)
+    case participants(notificationMessage: String)
     case recordingStart
     case recordingStop
     case muteAllAudio
@@ -35,7 +35,7 @@ public enum MenuType {
 }
 
 extension MenuType {
-    func getAccessIndentifier() -> String {
+    func getAccessIdentifier() -> String {
         switch self {
         case .shareMeetingUrl:
             "MoreMenu_Option_ShareMeetingUrl"
@@ -58,7 +58,7 @@ extension MenuType {
         case .settings:
             "MoreMenu_Option_Settings"
 
-        case .particpants(notificationMessage: _):
+        case .participants(notificationMessage: _):
             "MoreMenu_Option_Participants"
 
         case .recordingStart:
@@ -354,7 +354,7 @@ public class RtkMoreMenu: UIView {
         for i in 0 ..< features.count {
             let menu = features[i]
             // Setting accessIdentifier for Maestro Testing
-            bottomSheet.options[i].accessibilityIdentifier = menu.getAccessIndentifier()
+            bottomSheet.options[i].accessibilityIdentifier = menu.getAccessIdentifier()
         }
     }
 
@@ -411,7 +411,7 @@ public class RtkMoreMenu: UIView {
                     hideSheet()
                 }))
             case .stopScreenShare:
-                model.append(BottomSheetModel(type: feature, image: RtkImage(image: ImageProvider.image(named: "icon_start_screenshare")), title: "Stop screen share", onTap: { [weak self] _ in
+                model.append(BottomSheetModel(type: feature, image: RtkImage(image: ImageProvider.image(named: "icon_stop_screenshare")), title: "Stop screen share", onTap: { [weak self] _ in
                     guard let self else { return }
                     onSelect(feature)
                     hideSheet()
@@ -488,7 +488,7 @@ public class RtkMoreMenu: UIView {
                     onSelect(feature)
                     hideSheet()
                 }))
-            case let .particpants(notificationMessage):
+            case let .participants(notificationMessage):
                 model.append(BottomSheetModel(unreadCount: notificationMessage, type: feature, image: RtkImage(image: ImageProvider.image(named: "icon_participants")), title: "Participants", onTap: { [weak self] _ in
                     guard let self else { return }
                     onSelect(feature)

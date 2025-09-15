@@ -130,7 +130,7 @@ extension PagingScrollView {
         let scrollWidth = bounds.width
         let scrollHeight = bounds.height
         if isDebugModeOn {
-            print("Debug RtkUIKit | Scroll Widht \(scrollWidth) height \(scrollHeight)")
+            print("Debug RtkUIKit | Scroll Width \(scrollWidth) height \(scrollHeight)")
         }
 
         if index >= 0, index < totalNumberOfPages, pagingDatasource != nil {
@@ -140,7 +140,7 @@ extension PagingScrollView {
             // Insert entry in cache
             dict[index] = item
             if isDebugModeOn { print("Pages New loaded index \(index)>") }
-            // Remove unsed pages Only keep +1 and -1 index
+            // Remove unused pages Only keep +1 and -1 index
             return true
         }
 

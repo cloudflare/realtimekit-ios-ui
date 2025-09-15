@@ -101,7 +101,7 @@ public class RtkEventSelfListener {
 
     public func isCameraPermissionGranted(alertPresentingController: UIViewController? = RtkUIUtility.getTopViewController()) -> Bool {
         if !rtkClient.localUser.isCameraPermissionGranted {
-            if let alertContoller = alertPresentingController {
+            if let alertController = alertPresentingController {
                 let alert = UIAlertController(title: "Camera", message: "Camera access is necessary to use this app.\n Please click settings to change the permission.", preferredStyle: .alert)
 
                 alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
@@ -114,7 +114,7 @@ public class RtkEventSelfListener {
                     }
                 }))
 
-                alertContoller.present(alert, animated: true, completion: nil)
+                alertController.present(alert, animated: true, completion: nil)
             }
 
             return false

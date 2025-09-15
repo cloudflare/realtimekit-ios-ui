@@ -505,7 +505,7 @@ class CreatePollView: UIView {
 
     let backGroundColor = DesignLibrary.shared.color.background.shade900
 
-    let verticalSpacingBetweenElemements = DesignLibrary.shared.space.space4
+    let verticalSpacingBetweenElements = DesignLibrary.shared.space.space4
 
     let lblHeader: RtkLabel = {
         let label = RtkUIUtility.createLabel(text: "Create Poll", alignment: .left)
@@ -583,14 +583,14 @@ class CreatePollView: UIView {
         lblHeader.set(.sameLeadingTrailing(view),
                       .top(view))
         askQuestionTextView.set(.sameLeadingTrailing(view),
-                                .below(lblHeader, verticalSpacingBetweenElemements))
+                                .below(lblHeader, verticalSpacingBetweenElements))
         addOptionView.set(.sameLeadingTrailing(view),
-                          .below(askQuestionTextView, verticalSpacingBetweenElemements))
-        permissionSelectionView.set(.below(addOptionView, verticalSpacingBetweenElemements * 2),
+                          .below(askQuestionTextView, verticalSpacingBetweenElements))
+        permissionSelectionView.set(.below(addOptionView, verticalSpacingBetweenElements * 2),
                                     .sameLeadingTrailing(view))
         btnPublish.set(.bottom(view),
                        .trailing(view),
-                       .below(permissionSelectionView, verticalSpacingBetweenElemements))
+                       .below(permissionSelectionView, verticalSpacingBetweenElements))
         btnCancel.set(.leading(view),
                       .centerY(btnPublish))
     }

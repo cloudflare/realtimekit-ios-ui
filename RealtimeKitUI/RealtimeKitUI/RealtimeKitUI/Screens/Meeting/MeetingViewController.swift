@@ -70,10 +70,10 @@ public class MeetingViewController: RtkBaseMeetingViewController {
     private var viewWillAppear = false
 
     var moreButtonBottomBar: RtkControlBarButton?
-    private var layoutContraintPluginBaseZeroHeight: NSLayoutConstraint!
-    private var layoutPortraitContraintPluginBaseVariableHeight: NSLayoutConstraint!
-    private var layoutLandscapeContraintPluginBaseVariableWidth: NSLayoutConstraint!
-    private var layoutContraintPluginBaseZeroWidth: NSLayoutConstraint!
+    private var layoutConstraintPluginBaseZeroHeight: NSLayoutConstraint!
+    private var layoutPortraitConstraintPluginBaseVariableHeight: NSLayoutConstraint!
+    private var layoutLandscapeConstraintPluginBaseVariableWidth: NSLayoutConstraint!
+    private var layoutConstraintPluginBaseZeroWidth: NSLayoutConstraint!
 
     private var waitingRoomView: WaitingRoomView?
     private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = .invalid
@@ -100,10 +100,10 @@ public class MeetingViewController: RtkBaseMeetingViewController {
         } else {
             bottomBar.setHeight()
         }
-        setLeftPaddingContraintForBaseContentView()
+        setLeftPaddingConstraintForBaseContentView()
     }
 
-    private func setLeftPaddingContraintForBaseContentView() {
+    private func setLeftPaddingConstraintForBaseContentView() {
         if UIScreen.deviceOrientation == .landscapeLeft {
             baseContentView.get(.bottom)?.constant = -view.safeAreaInsets.bottom
             baseContentView.get(.leading)?.constant = view.safeAreaInsets.bottom
@@ -393,7 +393,7 @@ public class MeetingViewController: RtkBaseMeetingViewController {
         }
 
         showPinnedPluginViewAsPerOrientation(show: false)
-        setLeftPaddingContraintForBaseContentView()
+        setLeftPaddingConstraintForBaseContentView()
         DispatchQueue.main.async {
             self.refreshMeetingGrid(forRotation: true)
         }
@@ -405,7 +405,7 @@ public class MeetingViewController: RtkBaseMeetingViewController {
 extension MeetingViewController {
     private func requestBackgroundTime() {
         backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName: "WebRTCBackgroundTask") { [weak self] in
-            print("*****Background task Tring for Finish \(UIApplication.shared.backgroundTimeRemaining)")
+            print("*****Background task time remaining for Finish \(UIApplication.shared.backgroundTimeRemaining)")
 
             self?.requestBackgroundTime()
         }
@@ -431,29 +431,29 @@ extension MeetingViewController {
     }
 
     private func addBottomBarConstraint() {
-        addPortraitContraintBottombar()
-        addLandscapeContraintBottombar()
+        addPortraitConstraintBottombar()
+        addLandscapeConstraintBottombar()
         if UIScreen.isLandscape() {
             moreButtonBottomBar?.superview?.isHidden = true
         }
     }
 
-    private func addPortraitContraintBottombar() {
+    private func addPortraitConstraintBottombar() {
         bottomBar.set(.sameLeadingTrailing(view),
                       .bottom(view))
         portraitConstraints.append(contentsOf: [bottomBar.get(.leading)!,
                                                 bottomBar.get(.trailing)!,
                                                 bottomBar.get(.bottom)!])
-        setPortraitContraintAsDeactive()
+        setPortraitConstraintAsInactive()
     }
 
-    private func addLandscapeContraintBottombar() {
+    private func addLandscapeConstraintBottombar() {
         bottomBar.set(.trailing(view),
                       .sameTopBottom(view))
         landscapeConstraints.append(contentsOf: [bottomBar.get(.trailing)!,
                                                  bottomBar.get(.top)!,
                                                  bottomBar.get(.bottom)!])
-        setLandscapeContraintAsDeactive()
+        setLandscapeConstraintAsInactive()
     }
 }
 
@@ -510,17 +510,17 @@ private extension MeetingViewController {
     }
 
     private func showPinnedPluginViewAsPerOrientation(show: Bool) {
-        layoutPortraitContraintPluginBaseVariableHeight.isActive = false
-        layoutContraintPluginBaseZeroHeight.isActive = false
-        layoutLandscapeContraintPluginBaseVariableWidth.isActive = false
-        layoutContraintPluginBaseZeroWidth.isActive = false
+        layoutPortraitConstraintPluginBaseVariableHeight.isActive = false
+        layoutConstraintPluginBaseZeroHeight.isActive = false
+        layoutLandscapeConstraintPluginBaseVariableWidth.isActive = false
+        layoutConstraintPluginBaseZeroWidth.isActive = false
 
         if UIScreen.isLandscape() {
-            layoutLandscapeContraintPluginBaseVariableWidth.isActive = show
-            layoutContraintPluginBaseZeroWidth.isActive = !show
+            layoutLandscapeConstraintPluginBaseVariableWidth.isActive = show
+            layoutConstraintPluginBaseZeroWidth.isActive = !show
         } else {
-            layoutPortraitContraintPluginBaseVariableHeight.isActive = show
-            layoutContraintPluginBaseZeroHeight.isActive = !show
+            layoutPortraitConstraintPluginBaseVariableHeight.isActive = show
+            layoutConstraintPluginBaseZeroHeight.isActive = !show
         }
     }
 
@@ -539,12 +539,12 @@ private extension MeetingViewController {
                                                 pluginPinnedScreenShareBaseView.get(.trailing)!,
                                                 pluginPinnedScreenShareBaseView.get(.top)!])
 
-        layoutPortraitContraintPluginBaseVariableHeight = NSLayoutConstraint(item: pluginPinnedScreenShareBaseView, attribute: .height, relatedBy: .equal, toItem: baseContentView, attribute: .height, multiplier: 0.7, constant: 0)
-        layoutPortraitContraintPluginBaseVariableHeight.isActive = false
+        layoutPortraitConstraintPluginBaseVariableHeight = NSLayoutConstraint(item: pluginPinnedScreenShareBaseView, attribute: .height, relatedBy: .equal, toItem: baseContentView, attribute: .height, multiplier: 0.7, constant: 0)
+        layoutPortraitConstraintPluginBaseVariableHeight.isActive = false
 
-        layoutContraintPluginBaseZeroHeight = NSLayoutConstraint(item: pluginPinnedScreenShareBaseView, attribute: .height, relatedBy: .equal, toItem: baseContentView, attribute: .height, multiplier: 0.0, constant: 0)
+        layoutConstraintPluginBaseZeroHeight = NSLayoutConstraint(item: pluginPinnedScreenShareBaseView, attribute: .height, relatedBy: .equal, toItem: baseContentView, attribute: .height, multiplier: 0.0, constant: 0)
 
-        layoutContraintPluginBaseZeroHeight.isActive = false
+        layoutConstraintPluginBaseZeroHeight.isActive = false
 
         gridBaseView.set(.sameLeadingTrailing(baseContentView),
                          .below(pluginPinnedScreenShareBaseView),
@@ -571,7 +571,7 @@ private extension MeetingViewController {
                                                 pinnedView.get(.trailing)!,
                                                 pinnedView.get(.top)!,
                                                 pinnedView.get(.bottom)!])
-        setPortraitContraintAsDeactive()
+        setPortraitConstraintAsInactive()
     }
 
     private func addLandscapeConstraintForSubviews() {
@@ -591,12 +591,12 @@ private extension MeetingViewController {
                                                  pluginPinnedScreenShareBaseView.get(.bottom)!,
                                                  pluginPinnedScreenShareBaseView.get(.top)!])
 
-        layoutLandscapeContraintPluginBaseVariableWidth = NSLayoutConstraint(item: pluginPinnedScreenShareBaseView, attribute: .width, relatedBy: .equal, toItem: baseContentView, attribute: .width, multiplier: 0.75, constant: 0)
-        layoutLandscapeContraintPluginBaseVariableWidth.isActive = false
+        layoutLandscapeConstraintPluginBaseVariableWidth = NSLayoutConstraint(item: pluginPinnedScreenShareBaseView, attribute: .width, relatedBy: .equal, toItem: baseContentView, attribute: .width, multiplier: 0.75, constant: 0)
+        layoutLandscapeConstraintPluginBaseVariableWidth.isActive = false
 
-        layoutContraintPluginBaseZeroWidth = NSLayoutConstraint(item: pluginPinnedScreenShareBaseView, attribute: .width, relatedBy: .equal, toItem: baseContentView, attribute: .width, multiplier: 0.0, constant: 0)
+        layoutConstraintPluginBaseZeroWidth = NSLayoutConstraint(item: pluginPinnedScreenShareBaseView, attribute: .width, relatedBy: .equal, toItem: baseContentView, attribute: .width, multiplier: 0.0, constant: 0)
 
-        layoutContraintPluginBaseZeroWidth.isActive = false
+        layoutConstraintPluginBaseZeroWidth.isActive = false
 
         gridBaseView.set(.sameTopBottom(baseContentView),
                          .after(pluginPinnedScreenShareBaseView),
@@ -624,7 +624,7 @@ private extension MeetingViewController {
                                                  pinnedView.get(.top)!,
                                                  pinnedView.get(.bottom)!])
 
-        setLandscapeContraintAsDeactive()
+        setLandscapeConstraintAsInactive()
     }
 }
 
@@ -635,19 +635,19 @@ extension MeetingViewController {
         view.addSubview(topbar)
         topbar.accessibilityIdentifier = "Meeting_ControlTopBar"
         topBar = topbar
-        addPotraitContraintTopbar()
-        addLandscapeContraintTopbar()
+        addPortraitConstraintTopbar()
+        addLandscapeConstraintTopbar()
     }
 
-    private func addPotraitContraintTopbar() {
+    private func addPortraitConstraintTopbar() {
         topBar.set(.sameLeadingTrailing(view), .top(view))
         portraitConstraints.append(contentsOf: [topBar.get(.leading)!,
                                                 topBar.get(.trailing)!,
                                                 topBar.get(.top)!])
-        setPortraitContraintAsDeactive()
+        setPortraitConstraintAsInactive()
     }
 
-    private func addLandscapeContraintTopbar() {
+    private func addLandscapeConstraintTopbar() {
         topBar.set(.sameLeadingTrailing(view), .top(view))
 
         topBar.set(.height(0))
@@ -655,7 +655,7 @@ extension MeetingViewController {
                                                  topBar.get(.trailing)!,
                                                  topBar.get(.top)!,
                                                  topBar.get(.height)!])
-        setLandscapeContraintAsDeactive()
+        setLandscapeConstraintAsInactive()
     }
 }
 
@@ -667,14 +667,14 @@ extension MeetingViewController: MeetingViewModelDelegate {
     }
 
     func participantJoined(participant: RtkMeetingParticipant) {
-        topBar.refreshNextPreviouButtonState()
+        topBar.refreshNextPreviousButtonState()
         if Shared.data.notification.participantJoined.showToast {
             view.showToast(toastMessage: "\(participant.name) just joined", duration: 2.0, uiBlocker: false)
         }
     }
 
     func participantLeft(participant: RtkMeetingParticipant) {
-        topBar.refreshNextPreviouButtonState()
+        topBar.refreshNextPreviousButtonState()
         if Shared.data.notification.participantLeft.showToast {
             view.showToast(toastMessage: "\(participant.name) left", duration: 2.0, uiBlocker: false)
         }
@@ -929,7 +929,7 @@ extension MeetingViewController: MeetingViewModelDelegate {
         if let participant = meeting.participants.pinned {
             refreshMeetingGridTile(participant: participant)
         }
-        topBar.refreshNextPreviouButtonState()
+        topBar.refreshNextPreviousButtonState()
     }
 }
 
@@ -1033,12 +1033,12 @@ extension MeetingViewController {
     func setupNotifications() {
         meeting.addChatEventListener(chatEventListener: self)
         NotificationCenter.default.addObserver(self, selector: #selector(clearChatNotification), name: Notification.Name("NotificationAllChatsRead"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onEndMettingForAllButtonPressed), name: RtkLeaveDialog.onEndMeetingForAllButtonPress, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onEndMeetingForAllButtonPressed), name: RtkLeaveDialog.onEndMeetingForAllButtonPress, object: nil)
     }
 
     // MARK: Notification Setup Functionality
 
-    @objc private func onEndMettingForAllButtonPressed(notification _: Notification) {
+    @objc private func onEndMeetingForAllButtonPressed(notification _: Notification) {
         viewModel.selfEventListener.observeSelfRemoved(update: nil)
     }
 }

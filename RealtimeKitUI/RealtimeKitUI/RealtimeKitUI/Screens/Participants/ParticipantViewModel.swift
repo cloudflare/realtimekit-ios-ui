@@ -169,9 +169,9 @@ public class ParticipantViewControllerModel: ParticipantViewControllerModelProto
 
     private func refresh(completion: @escaping (Bool) -> Void) {
         dataSourceTableView.sections.removeAll()
-        let minimumParticpantCountToShowSearchBar = searchControllerMinimumParticipant
+        let minimumParticipantCountToShowSearchBar = searchControllerMinimumParticipant
         let sectionOne = getWaitlistSection()
-        let sectionTwo = getInCallSection(minimumParticpantCountToShowSearchBar: minimumParticpantCountToShowSearchBar)
+        let sectionTwo = getInCallSection(minimumParticipantCountToShowSearchBar: minimumParticipantCountToShowSearchBar)
         dataSourceTableView.sections.append(sectionOne)
         dataSourceTableView.sections.append(sectionTwo)
         completion(true)
@@ -233,7 +233,7 @@ extension ParticipantViewControllerModel {
         return sectionOne
     }
 
-    private func getInCallSection(minimumParticpantCountToShowSearchBar: Int) -> BaseConfiguratorSection<CollectionTableConfigurator> {
+    private func getInCallSection(minimumParticipantCountToShowSearchBar: Int) -> BaseConfiguratorSection<CollectionTableConfigurator> {
         let isSelfJoined = meeting.localUser.stageStatus == StageStatus.onStage
         let sectionTwo = BaseConfiguratorSection<CollectionTableConfigurator>()
 
@@ -248,7 +248,7 @@ extension ParticipantViewControllerModel {
             }
             sectionTwo.insert(TableItemConfigurator<TitleTableViewCell, TitleTableViewCellModel>(model: TitleTableViewCellModel(title: "In Call\(participantCount)")))
 
-            if joinedParticipants.count > minimumParticpantCountToShowSearchBar {
+            if joinedParticipants.count > minimumParticipantCountToShowSearchBar {
                 sectionTwo.insert(TableItemConfigurator<SearchTableViewCell, SearchTableViewCellModel>(model: SearchTableViewCellModel(placeHolder: "Search Participant")))
             }
 
@@ -417,9 +417,9 @@ public class LiveParticipantViewControllerModel: ParticipantViewControllerModelP
 
     private func refresh(completion: @escaping (Bool) -> Void) {
         dataSourceTableView.sections.removeAll()
-        let minimumParticpantCountToShowSearchBar = 5
+        let minimumParticipantCountToShowSearchBar = 5
         let sectionOne = getWaitlistSection()
-        let sectionTwo = getInCallSection(minimumParticpantCountToShowSearchBar: minimumParticpantCountToShowSearchBar)
+        let sectionTwo = getInCallSection(minimumParticipantCountToShowSearchBar: minimumParticipantCountToShowSearchBar)
         dataSourceTableView.sections.append(sectionOne)
         dataSourceTableView.sections.append(sectionTwo)
         completion(true)
@@ -479,7 +479,7 @@ extension LiveParticipantViewControllerModel {
         return sectionOne
     }
 
-    private func getInCallSection(minimumParticpantCountToShowSearchBar: Int) -> BaseConfiguratorSection<CollectionTableConfigurator> {
+    private func getInCallSection(minimumParticipantCountToShowSearchBar: Int) -> BaseConfiguratorSection<CollectionTableConfigurator> {
         let sectionTwo = BaseConfiguratorSection<CollectionTableConfigurator>()
 
         let remoteParticipants = meeting.participants.joined
@@ -495,7 +495,7 @@ extension LiveParticipantViewControllerModel {
             }
             sectionTwo.insert(TableItemConfigurator<TitleTableViewCell, TitleTableViewCellModel>(model: TitleTableViewCellModel(title: "In Call\(participantCount)")))
 
-            if joinedParticipants.count > minimumParticpantCountToShowSearchBar {
+            if joinedParticipants.count > minimumParticipantCountToShowSearchBar {
                 sectionTwo.insert(TableItemConfigurator<SearchTableViewCell, SearchTableViewCellModel>(model: SearchTableViewCellModel(placeHolder: "Search Participant")))
             }
 
@@ -590,9 +590,9 @@ public class ParticipantWebinarViewControllerModel {
 
     private func refresh(completion: @escaping (Bool) -> Void) {
         dataSourceTableView.sections.removeAll()
-        let minimumParticpantCountToShowSearchBar = 5
+        let minimumParticipantCountToShowSearchBar = 5
         let sectionOne = getWaitlistSection()
-        let sectionTwo = getInCallSection(minimumParticpantCountToShowSearchBar: minimumParticpantCountToShowSearchBar)
+        let sectionTwo = getInCallSection(minimumParticipantCountToShowSearchBar: minimumParticipantCountToShowSearchBar)
         dataSourceTableView.sections.append(sectionOne)
         dataSourceTableView.sections.append(sectionTwo)
         completion(true)
@@ -652,7 +652,7 @@ extension ParticipantWebinarViewControllerModel {
         return sectionOne
     }
 
-    private func getInCallSection(minimumParticpantCountToShowSearchBar: Int) -> BaseConfiguratorSection<CollectionTableConfigurator> {
+    private func getInCallSection(minimumParticipantCountToShowSearchBar: Int) -> BaseConfiguratorSection<CollectionTableConfigurator> {
         let joinedParticipants = rtkClient.participants.joined
         let sectionTwo = BaseConfiguratorSection<CollectionTableConfigurator>()
 
@@ -663,7 +663,7 @@ extension ParticipantWebinarViewControllerModel {
             }
             sectionTwo.insert(TableItemConfigurator<TitleTableViewCell, TitleTableViewCellModel>(model: TitleTableViewCellModel(title: "InCall\(participantCount)")))
 
-            if joinedParticipants.count > minimumParticpantCountToShowSearchBar {
+            if joinedParticipants.count > minimumParticipantCountToShowSearchBar {
                 sectionTwo.insert(TableItemConfigurator<SearchTableViewCell, SearchTableViewCellModel>(model: SearchTableViewCellModel(placeHolder: "Search Participant")))
             }
 

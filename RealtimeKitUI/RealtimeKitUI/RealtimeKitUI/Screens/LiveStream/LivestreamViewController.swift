@@ -34,8 +34,8 @@
 //
 //    private var moreButtonBottomBar: RtkControlBarButton?
 //    private var liveButtonBottomBar: RtkControlBarButton?
-//    private var layoutContraintPluginBaseZeroHeight: NSLayoutConstraint!
-//    private var layoutContraintPluginBaseVariableHeight: NSLayoutConstraint!
+//    private var layoutConstraintPluginBaseZeroHeight: NSLayoutConstraint!
+//    private var layoutConstraintPluginBaseVariableHeight: NSLayoutConstraint!
 //
 //    private let qualityButton: UIButton = {
 //        let button = UIButton(type: .system)
@@ -289,7 +289,7 @@
 ////        menus.append(.settings)
 ////
 ////        let chatCount = rtkClient.chat.messages.count
-////        menus.append(contentsOf: [.chat(notificationMessage: chatCount > 0 ? "\(chatCount)" : ""), .particpants(notificationMessage: message), .cancel])
+////        menus.append(contentsOf: [.chat(notificationMessage: chatCount > 0 ? "\(chatCount)" : ""), .participants(notificationMessage: message), .cancel])
 ////
 ////        let moreMenu = RtkMoreMenu(features: menus, onSelect: { [weak self] menuType in
 ////            guard let self = self else {return}
@@ -312,7 +312,7 @@
 ////                self.launchSettingScreen()
 ////            case .plugins:
 ////                self.onPluginTapped()
-////            case .particpants:
+////            case .participants:
 ////                self.launchLiveParticipantScreen()
 ////            default:
 ////                print("Not Supported for now")
@@ -344,10 +344,10 @@
 ////        controlsView.set(.sameLeadingTrailing(baseContentView),
 ////                           .bottom(baseContentView))
 ////
-////        layoutContraintPluginBaseVariableHeight = NSLayoutConstraint(item: pluginBaseView, attribute: .height, relatedBy: .equal, toItem: baseContentView, attribute: .height, multiplier: 0.7, constant: 0)
-////        layoutContraintPluginBaseZeroHeight = NSLayoutConstraint(item: pluginBaseView, attribute: .height, relatedBy: .equal, toItem: baseContentView, attribute: .height, multiplier: 0.0, constant: 0)
-////        layoutContraintPluginBaseZeroHeight.isActive = true
-////        layoutContraintPluginBaseVariableHeight.isActive = false
+////        layoutConstraintPluginBaseVariableHeight = NSLayoutConstraint(item: pluginBaseView, attribute: .height, relatedBy: .equal, toItem: baseContentView, attribute: .height, multiplier: 0.7, constant: 0)
+////        layoutConstraintPluginBaseZeroHeight = NSLayoutConstraint(item: pluginBaseView, attribute: .height, relatedBy: .equal, toItem: baseContentView, attribute: .height, multiplier: 0.0, constant: 0)
+////        layoutConstraintPluginBaseZeroHeight.isActive = true
+////        layoutConstraintPluginBaseVariableHeight.isActive = false
 ////
 ////        gridBaseView.set(.sameLeadingTrailing(baseContentView),
 ////                         .below(pluginBaseView),
@@ -615,8 +615,8 @@
 //    }
 //
 //    private func showPluginView(show: Bool, animation: Bool) {
-//        layoutContraintPluginBaseVariableHeight.isActive = show
-//        layoutContraintPluginBaseZeroHeight.isActive = !show
+//        layoutConstraintPluginBaseVariableHeight.isActive = show
+//        layoutConstraintPluginBaseZeroHeight.isActive = !show
 //        if animation {
 //            UIView.animate(withDuration: Animations.gridViewAnimationDuration) {
 //                self.view.layoutIfNeeded()
@@ -668,7 +668,7 @@
 //        gridView.set(.fillSuperView(toView))
 //    }
 //
-//    func showParticpantCount(text: String) {
+//    func showParticipantCount(text: String) {
 //        self.topBar.lblSubtitle.text = text
 //    }
 //
@@ -751,7 +751,7 @@
 //        if let participant = rtkClient.participants.pinned {
 //            self.refreshMeetingGridTile(participant: participant)
 //        }
-//        self.topBar.refreshNextPreviouButtonState()
+//        self.topBar.refreshNextPreviousButtonState()
 //    }
 // }
 //

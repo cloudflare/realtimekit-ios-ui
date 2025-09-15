@@ -252,12 +252,12 @@ extension GridView {
         } else {
             var result = [CGRect]()
             let rowHeight = height / CGFloat(rows)
-            let rowWidht = width
-            let firsRowFrame = CGRect(x: paddings.leading, y: paddings.top, width: rowWidht, height: rowHeight)
+            let rowWidth = width
+            let firsRowFrame = CGRect(x: paddings.leading, y: paddings.top, width: rowWidth, height: rowHeight)
             let firstRowItemCount = UInt(ceil(Float64(itemsCount) / CGFloat(rows)))
             let framesFirstRow = getFrameForFirstRow(items: firstRowItemCount, rowFrame: firsRowFrame)
             let itemsInSecondRow = (itemsCount - firstRowItemCount)
-            let framesSecondRow = getFrameForLastRow(items: firstRowItemCount, rowFrame: CGRect(x: paddings.leading, y: rowHeight, width: rowWidht, height: rowHeight))
+            let framesSecondRow = getFrameForLastRow(items: firstRowItemCount, rowFrame: CGRect(x: paddings.leading, y: rowHeight, width: rowWidth, height: rowHeight))
             result.append(contentsOf: framesFirstRow)
             for i in 0 ..< itemsInSecondRow {
                 result.append(framesSecondRow[Int(i)])
@@ -283,10 +283,10 @@ extension GridView {
         } else if itemsCount == 2 {
             var result = [CGRect]()
             let rowHeight = height / CGFloat(rows)
-            let rowWidht = width
-            let firsRowFrame = CGRect(x: paddings.leading, y: paddings.top, width: rowWidht, height: rowHeight)
+            let rowWidth = width
+            let firsRowFrame = CGRect(x: paddings.leading, y: paddings.top, width: rowWidth, height: rowHeight)
             let framesFirstRow = getFrameForFirstRow(items: 1, rowFrame: firsRowFrame)
-            let framesSecondRow = getFrameForLastRow(items: 1, rowFrame: CGRect(x: paddings.leading, y: rowHeight, width: rowWidht, height: rowHeight))
+            let framesSecondRow = getFrameForLastRow(items: 1, rowFrame: CGRect(x: paddings.leading, y: rowHeight, width: rowWidth, height: rowHeight))
             result.append(contentsOf: framesFirstRow)
             result.append(contentsOf: framesSecondRow)
             return result
@@ -370,14 +370,14 @@ extension GridView {
         var preFrame: CGRect?
 
         let totalInterimSpace = (CGFloat(items) - 1) * paddings.interimPadding
-        let itemWidht = (rowFrame.width - (paddings.leading + paddings.trailing + totalInterimSpace)) / CGFloat(items)
+        let itemWidth = (rowFrame.width - (paddings.leading + paddings.trailing + totalInterimSpace)) / CGFloat(items)
         let itemHeight = rowFrame.height - (paddings.top) - (paddings.interimPadding / 2.0)
 
         for _ in 0 ..< items {
             if let preFrame {
                 x = preFrame.maxX + paddings.interimPadding
             }
-            let frame = CGRect(x: x, y: top, width: itemWidht, height: itemHeight)
+            let frame = CGRect(x: x, y: top, width: itemWidth, height: itemHeight)
             result.append(frame)
             preFrame = frame
         }
@@ -394,14 +394,14 @@ extension GridView {
 
         let totalInterimSpace = (CGFloat(items) - 1) * paddings.interimPadding
         let totalPaddingSpace = paddings.leading + paddings.trailing + totalInterimSpace
-        let itemWidht = (rowFrame.width - totalPaddingSpace) / CGFloat(items)
+        let itemWidth = (rowFrame.width - totalPaddingSpace) / CGFloat(items)
         let itemHeight = rowFrame.height - paddings.interimPadding
 
         for _ in 0 ..< items {
             if let preFrame {
                 x = preFrame.maxX + paddings.interimPadding
             }
-            let frame = CGRect(x: x, y: top, width: itemWidht, height: itemHeight)
+            let frame = CGRect(x: x, y: top, width: itemWidth, height: itemHeight)
             result.append(frame)
             preFrame = frame
         }
@@ -417,14 +417,14 @@ extension GridView {
         let totalInterimSpace = (CGFloat(items) - 1) * paddings.interimPadding
         let totalPaddingSpace = paddings.leading + paddings.trailing + totalInterimSpace
 
-        let itemWidht = (rowFrame.width - totalPaddingSpace) / CGFloat(items)
+        let itemWidth = (rowFrame.width - totalPaddingSpace) / CGFloat(items)
         let itemHeight = rowFrame.height - (paddings.bottom) - (paddings.interimPadding / 2.0)
 
         for _ in 0 ..< items {
             if let preFrame {
                 x = preFrame.maxX + paddings.interimPadding
             }
-            let frame = CGRect(x: x, y: top, width: itemWidht, height: itemHeight)
+            let frame = CGRect(x: x, y: top, width: itemWidth, height: itemHeight)
             result.append(frame)
             preFrame = frame
         }

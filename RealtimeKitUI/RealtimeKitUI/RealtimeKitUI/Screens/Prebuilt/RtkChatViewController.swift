@@ -855,7 +855,7 @@ extension RtkChatViewController: RtkChatEventListener {
                         Shared.data.privateChatReadLookup[Self.keyEveryOne] = true
                     }
                 } else {
-                    // Message is for everone , but current selected user is different , so showing blue dot
+                    // Message is for everyone , but current selected user is different , so showing blue dot
                     notificationBadge.isHidden = false
                     Shared.data.privateChatReadLookup[Self.keyEveryOne] = true
                 }

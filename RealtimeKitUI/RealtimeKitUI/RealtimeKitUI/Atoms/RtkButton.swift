@@ -14,10 +14,10 @@ public protocol RtkButtonAppearance: BaseAppearance {
     var iconBackgroundColorToken: BackgroundColorToken.Shade { get set }
     var titleColor: TextColorToken.Background.Shade { get set }
     var cornerRadius: BorderRadiusToken.RadiusType { get set }
-    var borderWidhtType: BorderWidthToken.Width { get set }
+    var borderWidthType: BorderWidthToken.Width { get set }
     var selectedStateTintColor: TextColorToken.Background.Shade { get set }
     var normalStateTintColor: TextColorToken.Background.Shade { get set }
-    var acitivityInidicatorColor: TextColorToken.Background.Shade { get set }
+    var activityIndicatorColor: TextColorToken.Background.Shade { get set }
 }
 
 protocol RtkButtonApplyStyle {
@@ -29,28 +29,28 @@ protocol RtkButtonApplyStates {
 }
 
 public class RtkButtonAppearanceModel: RtkButtonAppearance {
-    public var desingLibrary: RtkDesignTokens
+    public var designLibrary: RtkDesignTokens
     public var selectedStateTintColor: TextColorToken.Background.Shade
     public var normalStateTintColor: TextColorToken.Background.Shade
 
     public required init(designLibrary: RtkDesignTokens = DesignLibrary.shared) {
-        desingLibrary = designLibrary
-        backgroundColor = desingLibrary.color.brand.shade500
-        titleColor = desingLibrary.color.textColor.onBackground.shade1000
+        self.designLibrary = designLibrary
+        backgroundColor = designLibrary.color.brand.shade500
+        titleColor = designLibrary.color.textColor.onBackground.shade1000
         selectedStateTintColor = designLibrary.color.textColor.onBackground.shade1000
         normalStateTintColor = designLibrary.color.textColor.onBackground.shade1000
         iconBackgroundColorToken = designLibrary.color.background.shade900
-        acitivityInidicatorColor = designLibrary.color.textColor.onBackground.shade900
+        activityIndicatorColor = designLibrary.color.textColor.onBackground.shade900
     }
 
     public var style: RtkButton.Style = .solid
     public var state: RtkButton.States = .active
     public var backgroundColor: BrandColorToken.Shade
     public var iconBackgroundColorToken: BackgroundColorToken.Shade
-    public var acitivityInidicatorColor: TextColorToken.Background.Shade
+    public var activityIndicatorColor: TextColorToken.Background.Shade
     public var titleColor: TextColorToken.Background.Shade
     public var cornerRadius: BorderRadiusToken.RadiusType = .rounded
-    public var borderWidhtType: BorderWidthToken.Width = .thin
+    public var borderWidthType: BorderWidthToken.Width = .thin
 }
 
 class BaseIndicatorView: UIView {
@@ -86,8 +86,8 @@ open class RtkButton: UIButton, BaseAtom {
     public enum Style {
         case solid
         case line
-        case iconLeftLable(icon: RtkImage)
-        case iconRightLable(icon: RtkImage)
+        case iconLeftLabel(icon: RtkImage)
+        case iconRightLabel(icon: RtkImage)
         case text
         case textIconLeft(icon: RtkImage)
         case textIconRight(icon: RtkImage)
@@ -142,7 +142,7 @@ open class RtkButton: UIButton, BaseAtom {
     var rtkButtonState: States = .active
     var size: Size
     var borderRadiusType: BorderRadiusToken.RadiusType
-    var borderWidhtType: BorderWidthToken.Width
+    var borderWidthType: BorderWidthToken.Width
     private var appearance: RtkButtonAppearance
     private var isLoading = false
     private var baseActivityIndicatorView: BaseIndicatorView?
@@ -174,11 +174,11 @@ open class RtkButton: UIButton, BaseAtom {
         normalStateTintColor = self.appearance.normalStateTintColor
         selectedStateTintColor = self.appearance.selectedStateTintColor
         borderRadiusType = self.appearance.cornerRadius
-        borderWidhtType = self.appearance.borderWidhtType
+        borderWidthType = self.appearance.borderWidthType
         super.init(frame: .zero)
         createButton(style: style)
         applyStyle(style: style)
-        applyWidhtHeightConstraint(style: style)
+        applyWidthHeightConstraint(style: style)
     }
 
     @available(*, unavailable)
@@ -219,7 +219,7 @@ open class RtkButton: UIButton, BaseAtom {
         var useDefaultButton = false
         var stackView: BaseStackView!
         switch style {
-        case .iconLeftLable:
+        case .iconLeftLabel:
             let result = getLabelAndImageOnlyView(dir: .left)
             stackView = result.stackView
             titleTextAtom = result.title
@@ -229,7 +229,7 @@ open class RtkButton: UIButton, BaseAtom {
             stackView = result.stackView
             titleTextAtom = result.title
             iconImageView = result.imageView
-        case .iconRightLable:
+        case .iconRightLabel:
             let result = getLabelAndImageOnlyView(dir: .right)
             stackView = result.stackView
             titleTextAtom = result.title
@@ -292,17 +292,17 @@ extension RtkButton: RtkButtonApplyStyle {
         case .solid:
             backgroundColor = appearance.backgroundColor
             setTitleColor(appearance.titleColor, for: .normal)
-            layer.cornerRadius = appearance.desingLibrary.borderRadius.getRadius(size: .one, radius: borderRadiusType)
+            layer.cornerRadius = appearance.designLibrary.borderRadius.getRadius(size: .one, radius: borderRadiusType)
         case .line:
             setTitleColor(appearance.backgroundColor, for: .normal)
-            layer.cornerRadius = appearance.desingLibrary.borderRadius.getRadius(size: .one, radius: borderRadiusType)
-            layer.borderWidth = appearance.desingLibrary.borderSize.getWidth(size: .one, width: borderWidhtType)
+            layer.cornerRadius = appearance.designLibrary.borderRadius.getRadius(size: .one, radius: borderRadiusType)
+            layer.borderWidth = appearance.designLibrary.borderSize.getWidth(size: .one, width: borderWidthType)
             layer.borderColor = appearance.backgroundColor.cgColor
         case .text:
-            setTitleColor(appearance.desingLibrary.color.textColor.onBrand.shade700, for: .normal)
-        case .iconLeftLable:
+            setTitleColor(appearance.designLibrary.color.textColor.onBrand.shade700, for: .normal)
+        case .iconLeftLabel:
             break
-        case .iconRightLable:
+        case .iconRightLabel:
             break
         case .textIconLeft:
             break
@@ -312,22 +312,22 @@ extension RtkButton: RtkButtonApplyStyle {
             backgroundColor = appearance.iconBackgroundColorToken
             setImage(icon.image?.withRenderingMode(.alwaysTemplate), for: .normal)
             tintColor = normalStateTintColor
-            layer.cornerRadius = appearance.desingLibrary.borderRadius.getRadius(size: .one, radius: borderRadiusType)
+            layer.cornerRadius = appearance.designLibrary.borderRadius.getRadius(size: .one, radius: borderRadiusType)
         case .splitButton:
             break
         }
     }
 
-    private func applyWidhtHeightConstraint(style: Style) {
+    private func applyWidthHeightConstraint(style: Style) {
         switch style {
         case .solid:
             setButtonHeight(constant: size.height())
         case .line:
             setButtonHeight(constant: size.height())
             setButtonWidth(constant: size.width())
-        case .iconLeftLable:
+        case .iconLeftLabel:
             break
-        case .iconRightLable:
+        case .iconRightLabel:
             break
         case .text:
             setButtonHeight(constant: size.height())
@@ -429,7 +429,7 @@ public extension RtkButton {
             baseActivityIndicatorView = baseIndicatorView
         }
         if baseActivityIndicatorView?.isHidden == true {
-            baseActivityIndicatorView?.indicatorView.color = appearance.acitivityInidicatorColor
+            baseActivityIndicatorView?.indicatorView.color = appearance.activityIndicatorColor
             baseActivityIndicatorView?.indicatorView.startAnimating()
             baseActivityIndicatorView?.backgroundColor = backgroundColor
             bringSubviewToFront(baseActivityIndicatorView!)

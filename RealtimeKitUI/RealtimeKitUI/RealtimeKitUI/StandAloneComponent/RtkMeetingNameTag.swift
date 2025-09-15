@@ -38,11 +38,11 @@ public class RtkMeetingNameTag: RtkNameTag {
         if isEnabled {
             imageView.accessibilityIdentifier = "NameTag_Mic_Enabled"
             imageView.image = ImageProvider.image(named: "icon_mic_enabled")?.withRenderingMode(.alwaysTemplate)
-            imageView.tintColor = appearance.desingLibrary.color.textColor.onBackground.shade1000
+            imageView.tintColor = appearance.designLibrary.color.textColor.onBackground.shade1000
         } else {
             imageView.accessibilityIdentifier = "NameTag_Mic_Disabled"
             imageView.image = ImageProvider.image(named: "icon_mic_disabled")?.withRenderingMode(.alwaysTemplate)
-            imageView.tintColor = appearance.desingLibrary.color.status.danger
+            imageView.tintColor = appearance.designLibrary.color.status.danger
         }
     }
 

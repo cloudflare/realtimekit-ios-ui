@@ -71,8 +71,8 @@ open class RtkMeetingHeaderView: UIView {
         stackView.addArrangedSubviews(title, stackViewSubTitle)
         containerView.addSubview(recordingView)
 
-        let nextPreviouStackView = RtkUIUtility.createStackView(axis: .horizontal, spacing: tokenSpace.space2)
-        containerView.addSubview(nextPreviouStackView)
+        let nextPreviousStackView = RtkUIUtility.createStackView(axis: .horizontal, spacing: tokenSpace.space2)
+        containerView.addSubview(nextPreviousStackView)
 
         stackView.set(.leading(containerView, tokenSpace.space3),
                       .sameTopBottom(containerView, tokenSpace.space2))
@@ -80,15 +80,15 @@ open class RtkMeetingHeaderView: UIView {
                           .top(containerView, tokenSpace.space1, .greaterThanOrEqual),
                           .after(stackView, tokenSpace.space3))
         recordingView.get(.top)?.priority = .defaultLow
-        nextPreviouStackView.set(.after(recordingView, tokenSpace.space3, .greaterThanOrEqual),
+        nextPreviousStackView.set(.after(recordingView, tokenSpace.space3, .greaterThanOrEqual),
                                  .trailing(containerView, tokenSpace.space3),
                                  .centerY(containerView),
                                  .top(containerView, tokenSpace.space1, .greaterThanOrEqual))
-        nextPreviouStackView.get(.top)?.priority = .defaultLow
+        nextPreviousStackView.get(.top)?.priority = .defaultLow
 
         let cameraSwitchButton = RtkSwitchCameraButtonControlBar(meeting: meeting)
         cameraSwitchButton.backgroundColor = backgroundColor
-        nextPreviouStackView.addArrangedSubviews(nextPreviousButtonView, cameraSwitchButton)
+        nextPreviousStackView.addArrangedSubviews(nextPreviousButtonView, cameraSwitchButton)
 
         nextPreviousButtonView.previousButton.addTarget(self, action: #selector(clickPrevious(button:)), for: .touchUpInside)
         nextPreviousButtonView.nextButton.addTarget(self, action: #selector(clickNext(button:)), for: .touchUpInside)
@@ -110,7 +110,7 @@ open class RtkMeetingHeaderView: UIView {
 public extension RtkMeetingHeaderView {
     // MARK: Public methods
 
-    func refreshNextPreviouButtonState() {
+    func refreshNextPreviousButtonState() {
         if meeting.meta.meetingType == RtkMeetingType.webinar {
             // For Hive Webinar we are not showing any pagination. Hence feature is disabled.
             return
