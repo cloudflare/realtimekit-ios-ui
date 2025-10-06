@@ -81,9 +81,9 @@ open class RtkMeetingHeaderView: UIView {
                           .after(stackView, tokenSpace.space3))
         recordingView.get(.top)?.priority = .defaultLow
         nextPreviousStackView.set(.after(recordingView, tokenSpace.space3, .greaterThanOrEqual),
-                                 .trailing(containerView, tokenSpace.space3),
-                                 .centerY(containerView),
-                                 .top(containerView, tokenSpace.space1, .greaterThanOrEqual))
+                                  .trailing(containerView, tokenSpace.space3),
+                                  .centerY(containerView),
+                                  .top(containerView, tokenSpace.space1, .greaterThanOrEqual))
         nextPreviousStackView.get(.top)?.priority = .defaultLow
 
         let cameraSwitchButton = RtkSwitchCameraButtonControlBar(meeting: meeting)

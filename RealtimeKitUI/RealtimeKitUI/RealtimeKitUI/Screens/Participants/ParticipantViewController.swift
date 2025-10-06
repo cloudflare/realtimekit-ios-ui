@@ -272,11 +272,15 @@ extension ParticipantViewController: UITableViewDataSource {
             case .muteAudio:
                 if let remoteParticipant = participant as? RtkRemoteParticipant {
                     remoteParticipant.disableAudio()
+                } else if let selfParticipant = participant as? RtkSelfParticipant {
+                    selfParticipant.disableAudio { _ in }
                 }
 
             case .muteVideo:
                 if let remoteParticipant = participant as? RtkRemoteParticipant {
                     remoteParticipant.disableVideo()
+                } else if let selfParticipant = participant as? RtkSelfParticipant {
+                    selfParticipant.disableVideo { _ in }
                 }
 
             case .kick:

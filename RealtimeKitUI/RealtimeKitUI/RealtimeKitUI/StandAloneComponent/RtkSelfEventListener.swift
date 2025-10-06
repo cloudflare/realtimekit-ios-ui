@@ -268,7 +268,9 @@ extension RtkEventSelfListener: RtkStageEventListener {
 }
 
 extension RtkEventSelfListener: RtkSelfEventListener {
-    public func onAudioDevicesUpdated() {}
+    public func onAudioDeviceChanged(audioDevice _: AudioDevice) {}
+
+    public func onAudioDevicesUpdated(devices _: [AudioDevice]) {}
 
     public func onMeetingRoomJoinedWithoutCameraPermission() {}
 

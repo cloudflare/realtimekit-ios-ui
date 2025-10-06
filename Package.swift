@@ -1,23 +1,30 @@
 // swift-tools-version:5.5
 import PackageDescription
 
-// BEGIN KMMBRIDGE VARIABLES BLOCK (do not edit)
-let remoteKotlinUrl = "https://github.com/harshs-dyte/RealtimeKitUI/releases/download/0.4.4/frameworkarchive.zip"
-let remoteKotlinChecksum = "33e667d7a8b2618e83af721d74a90b2a414326130b31e7dc65a31791bf5b6b54"
-let packageName = "RealtimeKit"
-// END KMMBRIDGE BLOCK
-
 let package = Package(
-    name: "RealtimeKit",
+    name: "RealtimeKitUI",
     platforms: [.iOS(.v13)],
     products: [
-        .library(name: packageName, targets: [packageName]),
+        .library(name: "RealtimeKitUI", targets: ["RealtimeKitUI"]),
+    ],
+    dependencies: [
+        .package(
+            url: "https://github.com/dyte-in/RealtimeKitCoreiOS.git",
+            from: "1.5.1"
+        ),
     ],
     targets: [
-        .binaryTarget(
-            name: packageName,
-            url: remoteKotlinUrl,
-            checksum: remoteKotlinChecksum
+        .target(
+            name: "RealtimeKitUI",
+            dependencies: [
+                .product(name: "RealtimeKit", package: "RealtimeKitCoreiOS"),
+                .product(name: "RTKWebRTC", package: "RealtimeKitCoreiOS"),
+            ],
+            path: "RealtimeKitUI/",
+            resources: [
+                .process("Resources/notification_join.mp3"),
+                .process("Resources/notification_message.mp3"),
+            ]
         ),
     ]
 )

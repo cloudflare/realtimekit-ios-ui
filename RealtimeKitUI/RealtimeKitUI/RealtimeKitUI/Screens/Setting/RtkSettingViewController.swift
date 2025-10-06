@@ -56,7 +56,7 @@ public class RtkSettingViewController: RtkBaseViewController, SetTopbar {
 
         loadSelfVideoView()
         view.backgroundColor = backgroundColor
-        NotificationCenter.default.addObserver(self, selector: #selector(routeChanged(notification:)), name: AVAudioSession.routeChangeNotification, object: nil)
+        meeting.addSelfEventListener(selfEventListener: self)
     }
 
     deinit {
@@ -64,21 +64,34 @@ public class RtkSettingViewController: RtkBaseViewController, SetTopbar {
     }
 }
 
-extension RtkSettingViewController {
-    @objc
-    private func routeChanged(notification _: Notification) {
-        if speakerDropDown != nil {
-            refreshAudioOutputDropDown()
-        }
-    }
+extension RtkSettingViewController: RtkSelfEventListener {
+    public func onAudioDeviceChanged(audioDevice _: AudioDevice) {}
 
-    private func refreshAudioOutputDropDown() {
-        let metaData = getSpeakerDropDownData()
-        speakerDropDown.refresh(selectedIndex: UInt(metaData.selectedIndex), options: metaData.devicesModel)
-        if speakerDropDown.selectedState {
-            audioSelectionView?.refresh(list: metaData.devicesModel, selectedIndex: UInt(metaData.selectedIndex))
-        }
-    }
+    public func onAudioUpdate(isEnabled _: Bool) {}
+
+    public func onMeetingRoomJoinedWithoutCameraPermission() {}
+
+    public func onMeetingRoomJoinedWithoutMicPermission() {}
+
+    public func onPermissionsUpdated(permission _: SelfPermissions) {}
+
+    public func onPinned() {}
+
+    public func onRemovedFromMeeting() {}
+
+    public func onScreenShareStartFailed(reason _: String) {}
+
+    public func onScreenShareUpdate(isEnabled _: Bool) {}
+
+    public func onUnpinned() {}
+
+    public func onUpdate(participant _: RtkSelfParticipant) {}
+
+    public func onVideoDeviceChanged(videoDevice _: VideoDevice) {}
+
+    public func onVideoUpdate(isEnabled _: Bool) {}
+
+    public func onWaitListStatusUpdate(waitListStatus _: RealtimeKit.WaitListStatus) {}
 
     private func setTag(name _: String) {
         selfPeerView.viewModel.refreshNameTag()
@@ -251,37 +264,26 @@ extension RtkSettingViewController {
         return cameraDropDown
     }
 
-    private func getSpeakerDropDownData() -> (devicesModel: [RtkAudioPickerCellModel], selectedIndex: Int) {
-        func getDevices() -> [RtkAudioPickerCellModel] {
-            let audioDevices = meeting.localUser.getAudioDevices()
-            var deviceModels = [RtkAudioPickerCellModel]()
-            for device in audioDevices {
-                deviceModels.append(RtkAudioPickerCellModel(name: device.type.displayName, deviceType: device.type))
-            }
-            return deviceModels
+    public func onAudioDevicesUpdated(devices: [AudioDevice]) {
+        let metaData = getSpeakerDropDownData(audioDevices: devices)
+        speakerDropDown.refresh(selectedIndex: UInt(metaData.selectedIndex), options: metaData.devicesModel)
+        if speakerDropDown.selectedState {
+            audioSelectionView?.refresh(list: metaData.devicesModel, selectedIndex: UInt(metaData.selectedIndex))
         }
+    }
 
-        func selectedIndex(current: AudioDeviceType?, deviceModels: [RtkAudioPickerCellModel]) -> Int {
-            var count = -1
-            for deviceModel in deviceModels {
-                count += 1
-                if deviceModel.deviceType == current {
-                    return count
-                }
-            }
-            return count
-        }
+    private func getSpeakerDropDownData(audioDevices: [AudioDevice]) -> (devicesModel: [RtkAudioPickerCellModel], selectedIndex: Int) {
+        let deviceModels = audioDevices.map { RtkAudioPickerCellModel(name: $0.type.displayName, deviceType: $0.type) }
         let currentAudioSelectedDevice: AudioDeviceType? = meeting.localUser.getSelectedAudioDevice()?.type
-        let devices = getDevices()
-        return (devices, selectedIndex(current: currentAudioSelectedDevice, deviceModels: devices))
+        return (deviceModels, deviceModels.firstIndex(where: { $0.deviceType == currentAudioSelectedDevice }) ?? (deviceModels.count - 1))
     }
 
     private func createAudioDropDown() -> RtkDropdown<RtkAudioPickerCellModel> {
-        let metaData = getSpeakerDropDownData()
+        let audioDevices = meeting.localUser.getAudioDevices()
+        let metaData = getSpeakerDropDownData(audioDevices: audioDevices)
         let speakerDropDown = RtkDropdown(rightImage: RtkImage(image: ImageProvider.image(named: "icon_angle_arrow_down")), heading: "Speaker (output)", options: metaData.devicesModel, selectedIndex: UInt(metaData.selectedIndex)) { [weak self] dropDown in
             guard let self else { return }
-            let metaData = getSpeakerDropDownData()
-            let audioDevices = meeting.localUser.getAudioDevices()
+            let metaData = getSpeakerDropDownData(audioDevices: audioDevices)
 
             let picker = RtkCustomPickerView.show(model: RtkPickerModel(title: dropDown.heading, selectedIndex: UInt(metaData.selectedIndex), cells: dropDown.options), on: view)
             picker.onSelectRow = { [weak self] picker, index in

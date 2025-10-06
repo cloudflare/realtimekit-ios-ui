@@ -545,7 +545,9 @@ extension MeetingViewModel: RtkPluginsEventListener {
 }
 
 extension MeetingViewModel: RtkSelfEventListener {
-    public func onAudioDevicesUpdated() {}
+    public func onAudioDeviceChanged(audioDevice _: AudioDevice) {}
+
+    public func onAudioDevicesUpdated(devices _: [AudioDevice]) {}
 
     public func onAudioUpdate(isEnabled _: Bool) {}
 

@@ -20,11 +20,11 @@ private class RtkCustomTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override public func textRect(forBounds bounds: CGRect) -> CGRect {
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
         CGRectInset(bounds, textInset.x, textInset.y)
     }
 
-    override public func editingRect(forBounds bounds: CGRect) -> CGRect {
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
         CGRectInset(bounds, textInset.x, textInset.y)
     }
 }
