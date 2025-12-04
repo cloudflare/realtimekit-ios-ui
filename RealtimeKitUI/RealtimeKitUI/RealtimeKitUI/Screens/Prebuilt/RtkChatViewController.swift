@@ -585,7 +585,7 @@ public class RtkChatViewController: RtkBaseViewController, NSTextStorageDelegate
     }
 
     @objc func addFileButtonTapped() {
-        var filePicker = if #available(iOS 14.0, *) {
+        let filePicker = if #available(iOS 14.0, *) {
             UIDocumentPickerViewController(forOpeningContentTypes: [.pdf, .text, .plainText, .audio, .video, .movie, .image, .livePhoto], asCopy: false)
         } else {
             UIDocumentPickerViewController(documentTypes: [], in: .import)
@@ -607,7 +607,7 @@ public class RtkChatViewController: RtkBaseViewController, NSTextStorageDelegate
             let spacing = CharacterSet.whitespacesAndNewlines
             let message = messageTextView.text.trimmingCharacters(in: spacing)
 
-            var error: ChatTextError? = if let id = selectedParticipant?.id, !id.isEmpty {
+            let error: ChatTextError? = if let id = selectedParticipant?.id, !id.isEmpty {
                 meeting.chat.sendTextMessage(message: message, peerIds: [id])
             } else {
                 meeting.chat.sendTextMessage(message: message)

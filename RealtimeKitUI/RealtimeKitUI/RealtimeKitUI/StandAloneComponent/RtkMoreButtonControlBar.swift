@@ -44,8 +44,8 @@ open class RtkMoreButtonControlBar: RtkControlBarButton {
 
     private func isExtensionProperlyConfigured() -> Bool {
         guard let infoDictionary = Bundle.main.infoDictionary else { return false }
-        guard let groupIdentifier = infoDictionary["RTKRTCAppGroupIdentifier"] else { return false }
-        guard let groupIdentifier = infoDictionary["RTKRTCScreenSharingExtension"] else { return false }
+        guard infoDictionary["RTKRTCAppGroupIdentifier"] != nil else { return false }
+        guard infoDictionary["RTKRTCScreenSharingExtension"] != nil else { return false }
         return true
     }
 

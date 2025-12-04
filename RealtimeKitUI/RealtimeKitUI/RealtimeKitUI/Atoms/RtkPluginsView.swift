@@ -311,7 +311,7 @@ public class RtkPluginsView: UIView {
 
 extension RtkPluginsView {
     private func showActiveSpeakerOrPinnedView(participant: RtkMeetingParticipant) {
-        _ = activeSpeakerView.videoView.set(participant: participant)
+        activeSpeakerView.videoView.set(participant: participant)
         activeSpeakerView.isHidden = false
     }
 }

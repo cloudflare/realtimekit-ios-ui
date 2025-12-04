@@ -96,7 +96,7 @@ extension ChatParticipantSelectionViewController: UITableViewDelegate, UITableVi
 
     private func setNotificationBadge(show: Bool, cell: ParticipantInCallTableViewCell) {
         if cell.notificationBadge == nil {
-            var notificationBadge = RtkNotificationBadgeView()
+            let notificationBadge = RtkNotificationBadgeView()
             cell.addSubview(notificationBadge)
             let notificationBadgeHeight = rtkSharedTokenSpace.space4
             notificationBadge.set(.centerY(cell.moreButton),

@@ -8,7 +8,7 @@
 import UIKit
 
 public struct BrandColorToken {
-    public class Shade: UIColor {}
+    public class Shade: UIColor, @unchecked Sendable {}
 
     private let base: Shade
     public let shade700: Shade

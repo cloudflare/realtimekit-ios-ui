@@ -90,7 +90,7 @@ extension ParticipantViewControllerModelProtocol {
             return false
         }) {
             if let indexFirstParticipantCell = section.items.firstIndex(where: { configurator in
-                if let configurator = configurator as? TableItemSearchableConfigurator<ParticipantInCallTableViewCell, ParticipantInCallTableViewCellModel> {
+                if configurator is TableItemSearchableConfigurator<ParticipantInCallTableViewCell, ParticipantInCallTableViewCellModel> {
                     return true
                 }
                 return false
@@ -723,7 +723,7 @@ extension ParticipantWebinarViewControllerModel {
             return false
         }) {
             if let indexFirstParticipantCell = section.items.firstIndex(where: { configurator in
-                if let configurator = configurator as? TableItemSearchableConfigurator<ParticipantInCallTableViewCell, ParticipantInCallTableViewCellModel> {
+                if configurator is TableItemSearchableConfigurator<ParticipantInCallTableViewCell, ParticipantInCallTableViewCellModel> {
                     return true
                 }
                 return false

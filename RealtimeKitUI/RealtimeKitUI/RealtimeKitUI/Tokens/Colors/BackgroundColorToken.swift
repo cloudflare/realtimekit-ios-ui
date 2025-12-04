@@ -8,7 +8,7 @@
 import UIKit
 
 public struct BackgroundColorToken {
-    public class Shade: UIColor {}
+    public class Shade: UIColor, @unchecked Sendable {}
 
     private let base: Shade
     public let shade1000: Shade
@@ -31,7 +31,7 @@ public struct BackgroundColorToken {
 }
 
 public struct StatusColor {
-    public class Shade: UIColor {}
+    public class Shade: UIColor, @unchecked Sendable {}
 
     public let danger: Shade
     public let success: Shade

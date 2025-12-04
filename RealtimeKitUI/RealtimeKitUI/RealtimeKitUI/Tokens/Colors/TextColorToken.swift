@@ -9,7 +9,7 @@ import UIKit
 
 public struct TextColorToken {
     public struct Background {
-        public class Shade: UIColor {}
+        public class Shade: UIColor, @unchecked Sendable {}
 
         private let base: Shade
         public let shade1000: Shade
@@ -36,7 +36,7 @@ public struct TextColorToken {
     }
 
     public struct Brand {
-        public class Shade: UIColor {}
+        public class Shade: UIColor, @unchecked Sendable {}
 
         private let base: Shade
         public let shade700: Shade

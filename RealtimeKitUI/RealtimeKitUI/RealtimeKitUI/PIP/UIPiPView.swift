@@ -82,7 +82,7 @@ class PipUserView: UIView {
     }
 
     private func removeFrameFetcher() {
-        if let frameRenderer, let participant {
+        if let frameRenderer {
             frameRenderer.clean()
             //            participant.videoTrack?.removeRenderer(renderer: frameRenderer)
         }
