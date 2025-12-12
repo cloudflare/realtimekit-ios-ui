@@ -15,6 +15,7 @@ public class RtkVideoView: UIView {
     private var onRendered: (() -> Void)?
     private let showSelfPreview: Bool
     private let showScreenShareView: Bool
+    private var hasMovedToWindow = false
 
     public init(participant: RtkMeetingParticipant, showSelfPreview: Bool = false, showScreenShare: Bool = false) {
         self.participant = participant
@@ -49,6 +50,18 @@ public class RtkVideoView: UIView {
         showVideoView(participant: participant)
     }
 
+    /// Force reattach the video renderer. Call this when returning to a screen after the video view may have been detached.
+    /// This is useful when navigating back from screens that used getSelfPreview() or other video views.
+    public func reattachRenderer() {
+        if isDebugModeOn {
+            print("Debug RtkUIKit | RtkVideoView reattachRenderer() is called")
+        }
+        // Remove the current render view to force SDK to provide a fresh one
+        prepareForReuse()
+        // Refresh to get and attach the new render view
+        refreshView()
+    }
+
     public func prepareForReuse() {
         if renderView?.superview == self {
             // As Core SDK provides cached renderView, So If someone ask for the view SDK will return the same view and Hence self.renderView.superView is changed , But self.renderView is still pointing to same cached SDK View.
@@ -69,6 +82,22 @@ public class RtkVideoView: UIView {
         }
         super.removeFromSuperview()
         prepareForReuse()
+    }
+
+    override public func didMoveToWindow() {
+        super.didMoveToWindow()
+        // When view is added back to window hierarchy, reattach renderer if needed
+        if window != nil {
+            if hasMovedToWindow {
+                // This is a return to window (not first time), so reattach
+                if isDebugModeOn {
+                    print("Debug RtkUIKit | RtkVideoView returned to window, reattaching renderer")
+                }
+                reattachRenderer()
+            } else {
+                hasMovedToWindow = true
+            }
+        }
     }
 
     deinit {

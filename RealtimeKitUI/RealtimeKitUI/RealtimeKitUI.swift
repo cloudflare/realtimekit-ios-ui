@@ -54,7 +54,7 @@ public class RealtimeKitUI {
     var completion: (() -> Void)!
 
     #if DEBUG
-        static let isDebugModeOn = false
+        static let isDebugModeOn = true
     #else
         static let isDebugModeOn = false
     #endif

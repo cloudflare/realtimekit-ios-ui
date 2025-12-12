@@ -181,7 +181,7 @@ class RtkPipController: NSObject {
             videoViewToDisplayOnPip.set(.fillSuperView(pipVideoCallViewController.view))
             videoViewToDisplayOnPip.backgroundColor = DesignLibrary.shared.color.background.shade1000
             let pipContentSource = AVPictureInPictureController.ContentSource(
-                activeVideoCallSourceView: self.videoView,
+                activeVideoCallSourceView: videoView,
                 contentViewController: pipVideoCallViewController,
             )
             pipController = AVPictureInPictureController(contentSource: pipContentSource)

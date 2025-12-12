@@ -45,7 +45,7 @@ class PluginCell: UITableViewCell {
     func set(plugin: RtkPlugin, indexPath _: IndexPath) {
         nameLabel.text = plugin.name
         if #available(iOS 13.0, *) {
-            self.launchImageView.image = ImageProvider.image(named: plugin.isActive == false ? "icon_plugin" : "icon_cross")?.withTintColor(DesignLibrary.shared.color.brand.shade500, renderingMode: .alwaysTemplate)
+            launchImageView.image = ImageProvider.image(named: plugin.isActive == false ? "icon_plugin" : "icon_cross")?.withTintColor(DesignLibrary.shared.color.brand.shade500, renderingMode: .alwaysTemplate)
         } else {
             // Fallback on earlier versions
             let image = ImageProvider.image(named: plugin.isActive == false ? "icon_plugin" : "icon_cross")
