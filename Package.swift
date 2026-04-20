@@ -9,16 +9,16 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/dyte-in/RealtimeKitCoreiOS.git",
-            from: "1.6.0"
+            url: "https://github.com/cloudflare/realtimekit-ios-core.git",
+            from: "2.0.0"
         ),
     ],
     targets: [
         .target(
             name: "RealtimeKitUI",
             dependencies: [
-                .product(name: "RealtimeKit", package: "RealtimeKitCoreiOS"),
-                .product(name: "RTKWebRTC", package: "RealtimeKitCoreiOS"),
+                .product(name: "RealtimeKit", package: "realtimekit-ios-core"),
+                .product(name: "RTKWebRTC", package: "realtimekit-ios-core"),
             ],
             path: "RealtimeKitUI/",
             resources: [
