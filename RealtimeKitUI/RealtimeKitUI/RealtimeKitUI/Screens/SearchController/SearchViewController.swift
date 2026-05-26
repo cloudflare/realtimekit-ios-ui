@@ -37,7 +37,7 @@ class SearchViewControllerModel {
     }
 }
 
-public class SearchViewController: UIViewController, KeyboardObservable {
+public class SearchViewController: UIViewController, @preconcurrency KeyboardObservable {
     let tableView = UITableView()
     let viewModel: SearchViewControllerModel
     var keyboardObserver: KeyboardObserver?

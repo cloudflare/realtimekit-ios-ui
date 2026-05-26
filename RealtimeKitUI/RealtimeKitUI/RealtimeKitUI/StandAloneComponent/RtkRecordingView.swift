@@ -31,6 +31,7 @@ public class RtkRecordingViewAppearanceModel: RtkRecordingViewAppearance {
     }
 }
 
+@MainActor
 public class RtkRecordingView: UIView {
     private let tokenSpace = DesignLibrary.shared.space
 
@@ -97,7 +98,7 @@ public class RtkRecordingView: UIView {
     }
 }
 
-extension RtkRecordingView: RtkRecordingEventListener {
+extension RtkRecordingView: @preconcurrency RtkRecordingEventListener {
     public func onRecordingStateChanged(oldState: RecordingState, newState: RecordingState) {
         if oldState != newState {
             switch newState {

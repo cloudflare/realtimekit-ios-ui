@@ -13,6 +13,7 @@ public class WebinarParticipantViewControllerModel {
     let waitlistEventListener: RtkWaitListParticipantUpdateEventListener
     let rtkSelfListener: RtkEventSelfListener
     private let isDebugModeOn = RealtimeKitUI.isDebugModeOn
+    private let showAcceptAllButton = true // TODO: when enable then please test the functionality, for now call backs are not working
     private let searchControllerMinimumParticipant = 5
 
     required init(rtkClient: RealtimeKitClient) {
@@ -51,6 +52,10 @@ public class WebinarParticipantViewControllerModel {
 
     func acceptAllWaitingRoomRequest() {
         rtkClient.participants.acceptAllWaitingRoomRequests()
+    }
+
+    func rejectAllWaitingRoomRequests() {
+        rtkClient.participants.rejectAllWaitingRoomRequests()
     }
 
     func rejectAll() {
@@ -127,8 +132,9 @@ extension WebinarParticipantViewControllerModel {
                 sectionOne.insert(TableItemConfigurator<ParticipantWaitingTableViewCell, ParticipantWaitingTableViewCellModel>(model: ParticipantWaitingTableViewCellModel(title: participant.name, image: image, showBottomSeparator: showBottomSeparator, showTopSeparator: false, participant: participant)))
             }
 
-            if waitListedParticipants.count > 1 {
+            if waitListedParticipants.count > 1, showAcceptAllButton {
                 sectionOne.insert(TableItemConfigurator<AcceptButtonWaitingTableViewCell, ButtonTableViewCellModel>(model: ButtonTableViewCellModel(buttonTitle: "Accept All")))
+                sectionOne.insert(TableItemConfigurator<RejectButtonTableViewCell, ButtonTableViewCellModel>(model: ButtonTableViewCellModel(buttonTitle: "Deny All", titleColor: rtkSharedTokenColor.status.danger)))
             }
         }
 

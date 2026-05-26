@@ -76,7 +76,7 @@ class TableItemConfigurator<Cell: TableViewCell, Model>: CollectionTableConfigur
     }
 }
 
-class TableItemSearchableConfigurator<Cell: TableViewCell, Model>: CollectionTableSearchConfigurator where Cell.Model == Model, Model: Searchable {
+class TableItemSearchableConfigurator<Cell: TableViewCell, Model: Searchable>: CollectionTableSearchConfigurator where Cell.Model == Model {
     override var reuseIdentifier: String {
         Cell.reuseIdentifier
     }

@@ -44,9 +44,9 @@ public class WaitingRoomView: UIView {
     private let automaticClose: Bool
 
     private let automaticCloseTime = 2
-    private let onComplete: () -> Void
+    private let onComplete: @MainActor () -> Void
 
-    public init(automaticClose: Bool, onCompletion: @escaping () -> Void) {
+    public init(automaticClose: Bool, onCompletion: @escaping @MainActor () -> Void) {
         self.automaticClose = automaticClose
         onComplete = onCompletion
         super.init(frame: .zero)

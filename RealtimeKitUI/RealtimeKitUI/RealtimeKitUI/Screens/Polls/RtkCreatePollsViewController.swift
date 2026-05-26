@@ -532,8 +532,7 @@ class CreatePollView: UIView {
 
         model.append(ListSelectionModel(image: RadioTypeImage(selectedImage: selectedImage, normalImage: unSelectedImage), title: "Anonymous", permission: .anonymous, isSelected: false))
         model.append(ListSelectionModel(image: RadioTypeImage(selectedImage: selectedImage, normalImage: unSelectedImage), title: "Hide result before voting", permission: .hideResultBeforeVoting, isSelected: true))
-        let selectionView = ListSelectionView(models: model, title: "Show Result")
-        return selectionView
+        return ListSelectionView(models: model, title: "Show Result")
     }()
 
     var question: String? {
@@ -601,7 +600,7 @@ enum Result<Value, Error: Swift.Error> {
     case failure(Error)
 }
 
-public class RtkCreatePollsViewController: UIViewController, KeyboardObservable {
+public class RtkCreatePollsViewController: UIViewController, @preconcurrency KeyboardObservable {
     let scrollView: UIScrollView = .init()
     var keyboardObserver: KeyboardObserver?
     let rtkClient: RealtimeKitClient
@@ -700,7 +699,7 @@ public class RtkCreatePollsViewController: UIViewController, KeyboardObservable 
     }
 }
 
-extension RtkCreatePollsViewController: RtkPollsEventListener {
+extension RtkCreatePollsViewController: @preconcurrency RtkPollsEventListener {
     public func onPollUpdate(poll _: Poll) {}
 
     public func onNewPoll(poll _: Poll) {

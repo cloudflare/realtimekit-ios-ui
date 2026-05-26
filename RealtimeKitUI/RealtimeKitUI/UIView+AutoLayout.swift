@@ -29,7 +29,7 @@ class ConstraintCreator: NSObject {
         self.constraints = constraints
     }
 
-    // Public enum containing all possible cases for "Getting" the constraint
+    /// Public enum containing all possible cases for "Getting" the constraint
     enum ConstraintType {
         case top
         case bottom
@@ -42,7 +42,7 @@ class ConstraintCreator: NSObject {
         case aspectRatio
     }
 
-    // Public enum containing all possible cases for constraints
+    /// Public enum containing all possible cases for constraints
     enum Constraint {
         case equate(viewAttribute: NSLayoutConstraint.Attribute, toView: UIView, toViewAttribute: NSLayoutConstraint.Attribute, relation: NSLayoutConstraint.Relation, constant: CGFloat, multiplier: CGFloat)
 
@@ -72,7 +72,7 @@ class ConstraintCreator: NSObject {
 
         case aspectRatio(ratio: CGFloat)
 
-        // A helper method which returns a NSLayoutConstraint on the basis of provided values
+        /// A helper method which returns a NSLayoutConstraint on the basis of provided values
         func getConstraint(for view: UIView) -> NSLayoutConstraint {
             switch self {
             case let .equate(viewAttribute: viewAttribute, toView: toView, toViewAttribute: toViewAttribute, relation: relation, constant: constant, multiplier):
@@ -120,7 +120,7 @@ class ConstraintCreator: NSObject {
         }
     }
 
-    // Use this method to equate constraints between any two attributes of two views
+    /// Use this method to equate constraints between any two attributes of two views
     ////Param - attribute - the attribute of main view
     ////Param - view - secondary view
     ////Param - toAttribute - the attribute of secondary view
@@ -132,7 +132,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.equate(viewAttribute: attribute, toView: view, toViewAttribute: toAttribute, relation: relation, constant: constant, multiplier: multiplier)])
     }
 
-    // Use this method to provide the height of the view
+    /// Use this method to provide the height of the view
     ////Param - constant - the height to be fixed
     ////Param  - relation - the Layout constraint relation
     ////Param - multiplier - multiplier for the constraint
@@ -141,7 +141,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.height(view: nil, relation: relation, constant: constant, multiplier: multiplier)])
     }
 
-    // Use this method to provide the width of the view
+    /// Use this method to provide the width of the view
     ////Param - constant - the width to be fixed
     ////Param  - relation - the Layout constraint relation
     ////Param - multiplier - multiplier for the constraint
@@ -150,7 +150,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.width(view: nil, relation: relation, constant: constant, multiplier: multiplier)])
     }
 
-    // Use this method to align top anchors of two views
+    /// Use this method to align top anchors of two views
     ////Param - view - the view to align top anchor with
     ////Param - constant - the constant to be applied while aligning views
     ////Param - relation - the Layout constraint relation
@@ -160,7 +160,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.top(view: view, constant: constant, relation: relation, multiplier: multiplier)])
     }
 
-    // Use this method to align bottom anchors of two views
+    /// Use this method to align bottom anchors of two views
     ////Param - view - the view to align bottom anchor with
     ////Param - constant - the constant to be applied while aligning views
     ////Param - relation - the Layout constraint relation
@@ -170,7 +170,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.bottom(view: view, constant: constant, relation: relation, multiplier: multiplier)])
     }
 
-    // Use this method to align leading anchors of two views
+    /// Use this method to align leading anchors of two views
     ////Param - view - the view to align leading anchor with
     ////Param - constant - the constant to be applied while aligning views
     ////Param - relation - the Layout constraint relation
@@ -180,7 +180,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.leading(view: view, constant: constant, relation: relation, multiplier: multiplier)])
     }
 
-    // Use this method to align trailing anchors of two views
+    /// Use this method to align trailing anchors of two views
     ////Param - view - the view to align trailing anchor with
     ////Param - constant - the constant to be applied while aligning views
     ////Param - relation - the Layout constraint relation
@@ -190,7 +190,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.trailing(view: view, constant: constant, relation: relation, multiplier: multiplier)])
     }
 
-    // Use this method to align the trailing and leading anchors of two views
+    /// Use this method to align the trailing and leading anchors of two views
     ////Param - view - the view to align trailing anchor with
     ////Param - constant - the constant to be applied while aligning views
     ////Param - relation - the Layout constraint relation
@@ -200,7 +200,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.before(view: view, constant: constant, relation: relation, multiplier: multiplier)])
     }
 
-    // Use this method to align the leading and trailing anchors of two views
+    /// Use this method to align the leading and trailing anchors of two views
     ////Param - view - the view to align leading anchor with
     ////Param - constant - the constant to be applied while aligning views
     ////Param - relation - the Layout constraint relation
@@ -210,7 +210,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.after(view: view, constant: constant, relation: relation, multiplier: multiplier)])
     }
 
-    // Use this method to align the bottom and top anchors of two views
+    /// Use this method to align the bottom and top anchors of two views
     ////Param - view - the view to align bottom anchor with
     ////Param - constant - the constant to be applied while aligning views
     ////Param - relation - the Layout constraint relation
@@ -220,7 +220,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.above(view: view, constant: constant, relation: relation, multiplier: multiplier)])
     }
 
-    // Use this method to align the top and bottom anchors of two views
+    /// Use this method to align the top and bottom anchors of two views
     ////Param - view - the view to align top anchor with
     ////Param - constant - the constant to be applied while aligning views
     ////Param - relation - the Layout constraint relation
@@ -230,7 +230,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.below(view: view, constant: constant, relation: relation, multiplier: multiplier)])
     }
 
-    // Use this method to align the centerX anchors of two views
+    /// Use this method to align the centerX anchors of two views
     ////Param - view - the view to align center X anchor with
     ////Param - constant - the constant to be applied while aligning views
     ////Param - multiplier - multiplier for the constraint
@@ -239,7 +239,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.centerX(view: view, constant: constant, multiplier: multiplier)])
     }
 
-    // Use this method to align the centerY anchors of two views
+    /// Use this method to align the centerY anchors of two views
     ////Param - view - the view to align center Y anchor with
     ////Param - constant - the constant to be applied while aligning views
     ////Param - multiplier - multiplier for the constraint
@@ -248,14 +248,14 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: [Constraint.centerY(view: view, constant: constant, multiplier: multiplier)])
     }
 
-    // Use this method to align the center anchors of two views
+    /// Use this method to align the center anchors of two views
     ////Param - view - the view to align center anchors with
     ////Returns - ConstraintCreator Object with suitable constraints
     static func centerView(_ view: UIView) -> ConstraintCreator {
         ConstraintCreator(constraints: ConstraintCreator.centerX(view).constraints + ConstraintCreator.centerY(view).constraints)
     }
 
-    // Use this method to align the height and width anchors of a view
+    /// Use this method to align the height and width anchors of a view
     ////Param - width - the constant to be applied while fixing width
     ////Param - height - the constant to be applied while fixing height
     ////Returns - ConstraintCreator Object with suitable constraints
@@ -263,14 +263,14 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: ConstraintCreator.width(width).constraints + ConstraintCreator.height(height).constraints)
     }
 
-    // Use this method to align the height and width anchors of a view
+    /// Use this method to align the height and width anchors of a view
     ////Param - size - the constant to be applied while fixing size
     ////Returns - ConstraintCreator Object with suitable constraints
     static func size(_ size: CGSize) -> ConstraintCreator {
         ConstraintCreator(constraints: ConstraintCreator.width(size.width).constraints + ConstraintCreator.height(size.height).constraints)
     }
 
-    // Use this method to align the leading and trailing anchors of a view
+    /// Use this method to align the leading and trailing anchors of a view
     ////Param - view - the view to align leading and trailing anchors with
     ////Param - constant - the constant to be applied while aligning views
     ////Returns - ConstraintCreator Object with suitable constraints
@@ -278,7 +278,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: ConstraintCreator.leading(view, constant, relation).constraints + ConstraintCreator.trailing(view, constant, relation).constraints)
     }
 
-    // Use this method to align the top and bottom anchors of a view
+    /// Use this method to align the top and bottom anchors of a view
     ////Param - view - the view to align top and bottom anchors with
     ////Param - constant - the constant to be applied while aligning views
     ////Returns - ConstraintCreator Object with suitable constraints
@@ -286,7 +286,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: ConstraintCreator.top(view, constant, relation).constraints + ConstraintCreator.bottom(view, constant, relation).constraints)
     }
 
-    // Use this method to align the leading, trailing, top and bottom anchors of a view
+    /// Use this method to align the leading, trailing, top and bottom anchors of a view
     ////Param - view - the view to align all 4 anchors with
     ////Param - constant - the constant to be applied while aligning views
     ////Returns - ConstraintCreator Object with suitable constraints
@@ -312,7 +312,7 @@ class ConstraintCreator: NSObject {
         return ConstraintCreator(constraints: constraints)
     }
 
-    // Use this method to align the leading, trailing, top and bottom anchors of a view
+    /// Use this method to align the leading, trailing, top and bottom anchors of a view
     ////Param - view - the view to align all 4 anchors with
     ////Param - constant - the constant to be applied while aligning views
     ////Returns - ConstraintCreator Object with suitable constraints
@@ -320,7 +320,7 @@ class ConstraintCreator: NSObject {
         ConstraintCreator(constraints: ConstraintCreator.sameLeadingTrailing(view, constant).constraints + ConstraintCreator.sameTopBottom(view, constant).constraints)
     }
 
-    // Use this create a ratio between width and height of the view
+    /// Use this create a ratio between width and height of the view
     ////Param - value - the ratio provided, will be taken as positive
     ////Returns - ConstraintCreator Object with suitable constraints
     static func aspectRatio(_ value: CGFloat) -> ConstraintCreator {
@@ -329,70 +329,70 @@ class ConstraintCreator: NSObject {
 }
 
 extension UIView {
-    // A struct containing all keys for Objective-C runtime association
+    /// A struct containing all keys for Objective-C runtime association
     enum AssociatedKeys {
-        static var leadingConstraint = "leadingConstraint"
-        static var trailingConstraint = "trailingConstraint"
-        static var topConstraint = "topConstraint"
-        static var bottomConstraint = "bottomConstraint"
-        static var heightConstraint = "heightConstraint"
-        static var widthConstraint = "widthConstraint"
-        static var centerXConstraint = "centerXConstraint"
-        static var centerYConstraint = "centerYConstraint"
-        static var aspectRatioConstraint = "aspectRatioConstraint"
+        nonisolated(unsafe) static var leadingConstraint = "leadingConstraint"
+        nonisolated(unsafe) static var trailingConstraint = "trailingConstraint"
+        nonisolated(unsafe) static var topConstraint = "topConstraint"
+        nonisolated(unsafe) static var bottomConstraint = "bottomConstraint"
+        nonisolated(unsafe) static var heightConstraint = "heightConstraint"
+        nonisolated(unsafe) static var widthConstraint = "widthConstraint"
+        nonisolated(unsafe) static var centerXConstraint = "centerXConstraint"
+        nonisolated(unsafe) static var centerYConstraint = "centerYConstraint"
+        nonisolated(unsafe) static var aspectRatioConstraint = "aspectRatioConstraint"
     }
 
     private static let constraintAssociation = ObjectAssociation<NSLayoutConstraint>()
 
-    // The parameter for holding leading constraint on UIView
+    /// The parameter for holding leading constraint on UIView
     private var leadingConstraint: NSLayoutConstraint? {
         get { UIView.constraintAssociation.get(index: self, key: &AssociatedKeys.leadingConstraint) }
         set { UIView.constraintAssociation.set(index: self, key: &AssociatedKeys.leadingConstraint, newValue: newValue) }
     }
 
-    // The parameter for holding trailing constraint on UIView
+    /// The parameter for holding trailing constraint on UIView
     private var trailingConstraint: NSLayoutConstraint? {
         get { UIView.constraintAssociation.get(index: self, key: &AssociatedKeys.trailingConstraint) }
         set { UIView.constraintAssociation.set(index: self, key: &AssociatedKeys.trailingConstraint, newValue: newValue) }
     }
 
-    // The parameter for holding top constraint on UIView
+    /// The parameter for holding top constraint on UIView
     private var topConstraint: NSLayoutConstraint? {
         get { UIView.constraintAssociation.get(index: self, key: &AssociatedKeys.topConstraint) }
         set { UIView.constraintAssociation.set(index: self, key: &AssociatedKeys.topConstraint, newValue: newValue) }
     }
 
-    // The parameter for holding bottom constraint on UIView
+    /// The parameter for holding bottom constraint on UIView
     private var bottomConstraint: NSLayoutConstraint? {
         get { UIView.constraintAssociation.get(index: self, key: &AssociatedKeys.bottomConstraint) }
         set { UIView.constraintAssociation.set(index: self, key: &AssociatedKeys.bottomConstraint, newValue: newValue) }
     }
 
-    // The parameter for holding height constraint on UIView
+    /// The parameter for holding height constraint on UIView
     private var heightConstraint: NSLayoutConstraint? {
         get { UIView.constraintAssociation.get(index: self, key: &AssociatedKeys.heightConstraint) }
         set { UIView.constraintAssociation.set(index: self, key: &AssociatedKeys.heightConstraint, newValue: newValue) }
     }
 
-    // The parameter for holding width constraint on UIView
+    /// The parameter for holding width constraint on UIView
     private var widthConstraint: NSLayoutConstraint? {
         get { UIView.constraintAssociation.get(index: self, key: &AssociatedKeys.widthConstraint) }
         set { UIView.constraintAssociation.set(index: self, key: &AssociatedKeys.widthConstraint, newValue: newValue) }
     }
 
-    // The parameter for holding centerX constraint on UIView
+    /// The parameter for holding centerX constraint on UIView
     private var centerXConstraint: NSLayoutConstraint? {
         get { UIView.constraintAssociation.get(index: self, key: &AssociatedKeys.centerXConstraint) }
         set { UIView.constraintAssociation.set(index: self, key: &AssociatedKeys.centerXConstraint, newValue: newValue) }
     }
 
-    // The parameter for holding centerY constraint on UIView
+    /// The parameter for holding centerY constraint on UIView
     private var centerYConstraint: NSLayoutConstraint? {
         get { UIView.constraintAssociation.get(index: self, key: &AssociatedKeys.centerYConstraint) }
         set { UIView.constraintAssociation.set(index: self, key: &AssociatedKeys.centerYConstraint, newValue: newValue) }
     }
 
-    // The parameter for holding aspect ratio constraint on UIView
+    /// The parameter for holding aspect ratio constraint on UIView
     private var aspectRatioConstraint: NSLayoutConstraint? {
         get { UIView.constraintAssociation.get(index: self, key: &AssociatedKeys.aspectRatioConstraint) }
         set { UIView.constraintAssociation.set(index: self, key: &AssociatedKeys.aspectRatioConstraint, newValue: newValue) }
@@ -402,8 +402,8 @@ extension UIView {
 extension UIView {
     // MARK: - Public APIs
 
-    // This function is used to add constraints to a view, and this in turn calls
-    // another private function of the same name.
+    /// This function is used to add constraints to a view, and this in turn calls
+    /// another private function of the same name.
     ////Param - An array of "ConstraintCreator" objects
     func set(_ constraints: ConstraintCreator..., isActive: Bool = true) {
         for constraintCreator in constraints {
@@ -412,7 +412,7 @@ extension UIView {
         }
     }
 
-    // This function is used to get constraints of a view
+    /// This function is used to get constraints of a view
     ////Param - A GetConstraint object
     ////Returns - An optional NSLayoutConstraint
     func get(_ constraint: ConstraintCreator.ConstraintType) -> NSLayoutConstraint? {
@@ -442,7 +442,7 @@ extension UIView {
 private extension UIView {
     // MARK: - Private APIs
 
-    // This function is used to add constraints to a view
+    /// This function is used to add constraints to a view
     ////Param - A array of Constraint object
     private func set(_ constraint: ConstraintCreator.Constraint, isActive: Bool) {
         let nsLayoutConstraint = constraint.getConstraint(for: self)
@@ -516,9 +516,9 @@ private extension UIView {
         }
     }
 
-    // This function checks if the constraint is already active or if repeated constraints
-    // are being applied. If that is the case, it deactivates the previous one, and always
-    // honors the latest one.
+    /// This function checks if the constraint is already active or if repeated constraints
+    /// are being applied. If that is the case, it deactivates the previous one, and always
+    /// honors the latest one.
     ////Param - constraint - a NSLayoutConstraint to be validated
     private func checkIfConstraintActiveAlready(_ constraint: NSLayoutConstraint?) {
         if let unwrappedConstraint = constraint, constraint?.isActive == true {
@@ -526,7 +526,7 @@ private extension UIView {
         }
     }
 
-    // This function validates the constraint before activating it
+    /// This function validates the constraint before activating it
     ////Param - The NSLayoutConstraint to be validated
     ////Returns - Whether to activate the constraint or not.
     private func validate(constraint: NSLayoutConstraint) -> Bool {
@@ -543,8 +543,8 @@ private extension UIView {
     }
 }
 
-// Helper class for getting and setting Objective-C runtime properties on objects.
-// In this case object -> UIView and properties -> NSLayoutConstraint
+/// Helper class for getting and setting Objective-C runtime properties on objects.
+/// In this case object -> UIView and properties -> NSLayoutConstraint
 final class ObjectAssociation<T: AnyObject> {
     private let policy: objc_AssociationPolicy
 

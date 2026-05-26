@@ -29,7 +29,7 @@ public class RtkControlBarAppearanceModel: RtkControlBarAppearance {
     public var backgroundColor: BackgroundColorToken.Shade
 }
 
-open class RtkTabBar: UIView, AdaptableUI {
+open class RtkTabBar: UIView, @preconcurrency AdaptableUI {
     public var portraitConstraints = [NSLayoutConstraint]()
     public var landscapeConstraints = [NSLayoutConstraint]()
     private var previousOrientationIsLandscape = UIScreen.isLandscape()
@@ -266,7 +266,7 @@ open class RtkControlBar: RtkTabBar {
         setButtons([RtkControlBarButton]())
     }
 
-    // Override this if you don't want to add More and Call Buttons by defaults
+    /// Override this if you don't want to add More and Call Buttons by defaults
     open func addDefaultButtons(_ buttons: [RtkControlBarButton]) -> [RtkControlBarButton] {
         buttons
     }
@@ -287,10 +287,9 @@ open class RtkControlBar: RtkTabBar {
     }
 
     private func getEndCallButton() -> RtkEndMeetingControlBarButton {
-        let endCallButton = RtkEndMeetingControlBarButton(meeting: meeting, alertViewController: presentingViewController) { _, _ in
+        RtkEndMeetingControlBarButton(meeting: meeting, alertViewController: presentingViewController) { _, _ in
             self.endCallCompletion?()
         }
-        return endCallButton
     }
 
     public func setTabBarButtonTitles(numOfLines: Int) {

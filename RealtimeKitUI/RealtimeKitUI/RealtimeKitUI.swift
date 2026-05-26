@@ -39,6 +39,7 @@ public protocol RtkUIFlowCoordinatorDelegate {
     func showWebinarMeetingScreen(meeting: RealtimeKitClient, completion: @escaping () -> Void) -> UIViewController?
 }
 
+@MainActor
 public class RealtimeKitUI {
     public enum WebinarAlertButtonType {
         case confirmAndJoin
@@ -54,9 +55,9 @@ public class RealtimeKitUI {
     var completion: (() -> Void)!
 
     #if DEBUG
-        static let isDebugModeOn = true
+        nonisolated static let isDebugModeOn = true
     #else
-        static let isDebugModeOn = false
+        nonisolated static let isDebugModeOn = false
     #endif
 
     public var delegate: RealtimeKitUILifeCycle? {
@@ -133,7 +134,7 @@ extension RealtimeKitUI {
     }
 }
 
-extension RealtimeKitUI: SetupViewControllerDelegate {
+extension RealtimeKitUI: @preconcurrency SetupViewControllerDelegate {
     public func userJoinedMeetingSuccessfully(sender: UIViewController) {
         launchMeetingScreen(on: sender, completion: completion)
     }

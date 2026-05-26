@@ -8,10 +8,7 @@
 import UIKit
 
 class WebinarViewersTableViewCell: ParticipantTableViewCell {
-    let moreButton = {
-        let button = RtkButton(style: .iconOnly(icon: RtkImage(image: ImageProvider.image(named: "icon_more_tabbar"))), rtkButtonState: .active)
-        return button
-    }()
+    let moreButton = RtkButton(style: .iconOnly(icon: RtkImage(image: ImageProvider.image(named: "icon_more_tabbar"))), rtkButtonState: .active)
 
     private var viewModel: WebinarViewersTableViewCellModel?
     var buttonMoreClick: ((RtkButton) -> Void)?
@@ -28,7 +25,7 @@ class WebinarViewersTableViewCell: ParticipantTableViewCell {
     }
 }
 
-extension WebinarViewersTableViewCell: ConfigureView {
+extension WebinarViewersTableViewCell: @preconcurrency ConfigureView {
     var model: WebinarViewersTableViewCellModel {
         if let model = viewModel {
             return model

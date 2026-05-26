@@ -90,7 +90,7 @@ class PipUserView: UIView {
     }
 }
 
-extension PipUserView: RtkParticipantUpdateListener {
+extension PipUserView: @preconcurrency RtkParticipantUpdateListener {
     func onAudioUpdate(participant _: RtkMeetingParticipant, isEnabled _: Bool) {}
 
     func onPinned(participant _: RtkMeetingParticipant) {}
@@ -156,12 +156,12 @@ class PipDisplayView: UIView {
     }
 }
 
-class RtkPipController: NSObject {
+class RtkPipController: NSObject, @unchecked Sendable {
     private var videoView: UIView
     private var pipController: AVPictureInPictureController?
     var isPlayBackPaused = true
     private(set) var localUser: RtkSelfParticipant
-    var videoViewToDisplayOnPip = PipDisplayView()
+    var videoViewToDisplayOnPip: PipDisplayView!
     private(set) var otherUser: RtkRemoteParticipant?
     private let size: CGSize
     private let scaleFactorWidth = 0.25
@@ -172,6 +172,8 @@ class RtkPipController: NSObject {
         self.localUser = localUser
         let screenSize = UIScreen.main.bounds.size
         size = CGSize(width: screenSize.width * scaleFactorWidth, height: screenSize.height * scaleFactorHeight)
+        // RtkPipController is always created on the main thread (receives a UIView).
+        videoViewToDisplayOnPip = MainActor.assumeIsolated { PipDisplayView() }
         super.init()
 
         if #available(iOS 15.0, *) {
@@ -206,7 +208,7 @@ class RtkPipController: NSObject {
     }
 }
 
-extension RtkPipController: AVPictureInPictureControllerDelegate {
+extension RtkPipController: @preconcurrency AVPictureInPictureControllerDelegate {
     open func pictureInPictureControllerWillStartPictureInPicture(
         _: AVPictureInPictureController,
     ) {}
@@ -237,7 +239,7 @@ extension RtkPipController: AVPictureInPictureControllerDelegate {
     }
 }
 
-class RtkPipFrameRender: NSObject, RTKRTCVideoRenderer {
+class RtkPipFrameRender: NSObject, RTKRTCVideoRenderer, @unchecked Sendable {
     var displayLayer: AVSampleBufferDisplayLayer
     let targetSize: CGSize
     let flipFrame: Bool
@@ -250,7 +252,12 @@ class RtkPipFrameRender: NSObject, RTKRTCVideoRenderer {
 
     func setSize(_: CGSize) {}
 
-    var shouldRenderFrame = true
+    private let renderLock = NSLock()
+    private var _shouldRenderFrame = true
+    var shouldRenderFrame: Bool {
+        get { renderLock.withLock { _shouldRenderFrame } }
+        set { renderLock.withLock { _shouldRenderFrame = newValue } }
+    }
 
     func clean() {
         shouldRenderFrame = false
@@ -289,7 +296,7 @@ class RtkPipFrameRender: NSObject, RTKRTCVideoRenderer {
         }
     }
 
-    // Helper function to convert RTCVideoFrame to CVPixelBuffer
+    /// Helper function to convert RTCVideoFrame to CVPixelBuffer
     private func frameToPixelBuffer(frame: RTKRTCVideoFrame) -> CVPixelBuffer? {
         if let buffer = frame.buffer as? RTKRTCCVPixelBuffer {
             return buffer.pixelBuffer

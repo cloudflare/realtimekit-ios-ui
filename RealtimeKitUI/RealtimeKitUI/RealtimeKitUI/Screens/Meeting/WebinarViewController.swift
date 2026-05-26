@@ -56,7 +56,7 @@ public class WebinarViewController: MeetingViewController {
     }
 
     func getTabBar() -> RtkControlBar {
-        let controlBar = RtkWebinarControlBar(meeting: meeting, delegate: nil, dataSource: nil, presentingViewController: self) { _ in
+        RtkWebinarControlBar(meeting: meeting, delegate: nil, dataSource: nil, presentingViewController: self) { _ in
         } settingViewControllerCompletion: {
             [weak self] in
             guard let self else { return }
@@ -67,7 +67,6 @@ public class WebinarViewController: MeetingViewController {
             viewModel.clean()
             onFinishedMeeting()
         }
-        return controlBar
     }
 
     func updateNotificationWithToast(message: String) {
@@ -77,7 +76,7 @@ public class WebinarViewController: MeetingViewController {
     }
 }
 
-extension WebinarViewController: RtkStageDelegate {
+extension WebinarViewController: @preconcurrency RtkStageDelegate {
     func onPresentRequestAdded(participant: RtkRemoteParticipant) {
         updateNotificationWithToast(message: "\(participant.name) has requested to join stage")
     }

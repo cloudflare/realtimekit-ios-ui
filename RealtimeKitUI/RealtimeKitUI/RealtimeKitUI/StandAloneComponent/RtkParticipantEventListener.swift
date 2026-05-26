@@ -97,7 +97,7 @@ extension RtkParticipantUpdateEventListener: RtkParticipantUpdateListener {
     }
 }
 
-public class RtkWaitListParticipantUpdateEventListener {
+public class RtkWaitListParticipantUpdateEventListener: @unchecked Sendable {
     public var participantJoinedCompletion: ((RtkMeetingParticipant) -> Void)?
     public var participantRemovedCompletion: ((RtkMeetingParticipant) -> Void)?
     public var participantRequestAcceptedCompletion: ((RtkMeetingParticipant) -> Void)?
@@ -147,20 +147,26 @@ extension RtkWaitListParticipantUpdateEventListener: RtkWaitlistEventListener {
         if isDebugModeOn {
             print("Debug RtkUIKit | onWaitListParticipantRejected \(participant.name) \(participant.id) self \(participant.id)")
         }
-        participantRequestRejectCompletion?(participant)
+        DispatchQueue.main.async {
+            self.participantRequestRejectCompletion?(participant)
+        }
     }
 
     public func onWaitListParticipantClosed(participant: RtkRemoteParticipant) {
         if isDebugModeOn {
             print("Debug RtkUIKit | onWaitListParticipantClosed \(participant.name)")
         }
-        participantRemovedCompletion?(participant)
+        DispatchQueue.main.async {
+            self.participantRemovedCompletion?(participant)
+        }
     }
 
     public func onWaitListParticipantJoined(participant: RtkRemoteParticipant) {
         if isDebugModeOn {
             print("Debug RtkUIKit | onWaitListParticipantJoined \(participant.name)")
         }
-        participantJoinedCompletion?(participant)
+        DispatchQueue.main.async {
+            self.participantJoinedCompletion?(participant)
+        }
     }
 }

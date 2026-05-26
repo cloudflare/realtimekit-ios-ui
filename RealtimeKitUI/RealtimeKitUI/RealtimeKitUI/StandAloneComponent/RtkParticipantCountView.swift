@@ -8,6 +8,7 @@
 import RealtimeKit
 import UIKit
 
+@MainActor
 public class RtkParticipantCountView: RtkLabel {
     private let meeting: RealtimeKitClient
 
@@ -39,7 +40,7 @@ public class RtkParticipantCountView: RtkLabel {
     }
 }
 
-extension RtkParticipantCountView: RtkMeetingRoomEventListener {
+extension RtkParticipantCountView: @preconcurrency RtkMeetingRoomEventListener {
     public func onActiveTabUpdate(meeting _: RealtimeKitClient, activeTab _: ActiveTab) {}
 
     public func onMeetingEnded() {}
@@ -69,7 +70,7 @@ extension RtkParticipantCountView: RtkMeetingRoomEventListener {
     }
 }
 
-extension RtkParticipantCountView: RtkParticipantsEventListener {
+extension RtkParticipantCountView: @preconcurrency RtkParticipantsEventListener {
     public func onAllParticipantsUpdated(allParticipants _: [RtkParticipant]) {}
 
     public func onUpdate(participants _: RtkParticipants) {}

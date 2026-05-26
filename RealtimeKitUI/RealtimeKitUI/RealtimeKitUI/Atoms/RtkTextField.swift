@@ -37,11 +37,7 @@ public class RtkTextField: BaseAtomView {
     let backGroundColor: UIColor
     let textFieldTextColorToken = DesignLibrary.shared.color.textColor.onBackground.shade600
 
-    fileprivate let textField: RtkCustomTextField = {
-        let textField = RtkCustomTextField(insetPoint: CGPoint(x: 10, y: 10))
-
-        return textField
-    }()
+    fileprivate let textField: RtkCustomTextField = .init(insetPoint: CGPoint(x: 10, y: 10))
 
     let lblHeader: RtkLabel = RtkUIUtility.createLabel(text: "", alignment: .left)
     let lblError: RtkLabel = RtkUIUtility.createLabel(text: "", alignment: .left)

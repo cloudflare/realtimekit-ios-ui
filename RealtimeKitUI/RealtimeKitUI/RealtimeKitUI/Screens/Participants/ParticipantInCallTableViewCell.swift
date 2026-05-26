@@ -27,10 +27,7 @@ class ParticipantInCallTableViewCell: ParticipantTableViewCell {
     }()
 
     var notificationBadge: RtkNotificationBadgeView?
-    var moreButton = {
-        let button = RtkButton(style: .iconOnly(icon: RtkImage(image: ImageProvider.image(named: "icon_more_tabbar"))), rtkButtonState: .active)
-        return button
-    }()
+    var moreButton = RtkButton(style: .iconOnly(icon: RtkImage(image: ImageProvider.image(named: "icon_more_tabbar"))), rtkButtonState: .active)
 
     private var viewModel: ParticipantInCallTableViewCellModel?
     var buttonMoreClick: ((RtkButton) -> Void)?
@@ -58,7 +55,7 @@ class ParticipantInCallTableViewCell: ParticipantTableViewCell {
     }
 }
 
-extension ParticipantInCallTableViewCell: ConfigureView {
+extension ParticipantInCallTableViewCell: @preconcurrency ConfigureView {
     var model: ParticipantInCallTableViewCellModel {
         if let model = viewModel {
             return model

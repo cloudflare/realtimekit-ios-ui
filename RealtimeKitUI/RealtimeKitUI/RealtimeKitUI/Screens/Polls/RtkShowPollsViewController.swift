@@ -445,13 +445,10 @@ extension ShowPollsViewModel: RtkPollsEventListener {
     }
 }
 
-public class RtkShowPollsViewController: UIViewController, SetTopbar {
+public class RtkShowPollsViewController: UIViewController, @preconcurrency SetTopbar {
     public var shouldShowTopBar: Bool = true
 
-    public let topBar: RtkNavigationBar = {
-        let topBar = RtkNavigationBar(title: "Polls")
-        return topBar
-    }()
+    public let topBar: RtkNavigationBar = .init(title: "Polls")
 
     let scrollView: UIScrollView = .init()
     let spaceToken = DesignLibrary.shared.space

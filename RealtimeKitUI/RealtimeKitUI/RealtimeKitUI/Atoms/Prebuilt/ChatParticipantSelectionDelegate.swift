@@ -5,7 +5,7 @@ protocol ChatParticipantSelectionDelegate: AnyObject {
     func didSelectChat(withParticipant participant: RtkRemoteParticipant?)
 }
 
-class ChatParticipantSelectionViewController: UIViewController, SetTopbar {
+class ChatParticipantSelectionViewController: UIViewController, @preconcurrency SetTopbar {
     var shouldShowTopBar: Bool = true
     var topBar: RtkNavigationBar = .init(title: "Chat with...")
     weak var delegate: ChatParticipantSelectionDelegate?

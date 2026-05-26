@@ -9,7 +9,7 @@ import AVFAudio
 import RealtimeKit
 import UIKit
 
-public class RtkSettingViewController: RtkBaseViewController, SetTopbar {
+public class RtkSettingViewController: RtkBaseViewController, @preconcurrency SetTopbar {
     public var shouldShowTopBar: Bool = true
     public var topBar: RtkNavigationBar = .init(title: "Settings")
     private let baseView: BaseView = .init()
@@ -64,7 +64,7 @@ public class RtkSettingViewController: RtkBaseViewController, SetTopbar {
     }
 }
 
-extension RtkSettingViewController: RtkSelfEventListener {
+extension RtkSettingViewController: @preconcurrency RtkSelfEventListener {
     public func onAudioDeviceChanged(audioDevice _: AudioDevice) {}
 
     public func onAudioUpdate(isEnabled _: Bool) {}
@@ -244,7 +244,7 @@ extension RtkSettingViewController: RtkSelfEventListener {
     private func createCameraDropDown() -> RtkDropdown<CameraPickerCellModel> {
         let currentCameraSelectedDevice: VideoDeviceType? = meeting.localUser.getSelectedVideoDevice()?.type
 
-        let cameraDropDown = RtkDropdown(rightImage: RtkImage(image: ImageProvider.image(named: "icon_angle_arrow_down")), heading: "Camera", options: [CameraPickerCellModel(name: "Front camera", deviceType: .front), CameraPickerCellModel(name: "Back camera", deviceType: .rear)], selectedIndex: currentCameraSelectedDevice == .front ? 0 : 1) { [weak self] dropDown in
+        return RtkDropdown(rightImage: RtkImage(image: ImageProvider.image(named: "icon_angle_arrow_down")), heading: "Camera", options: [CameraPickerCellModel(name: "Front camera", deviceType: .front), CameraPickerCellModel(name: "Back camera", deviceType: .rear)], selectedIndex: currentCameraSelectedDevice == .front ? 0 : 1) { [weak self] dropDown in
             guard let self else { return }
             let currentSelectedDevice: VideoDeviceType? = meeting.localUser.getSelectedVideoDevice()?.type
 
@@ -261,7 +261,6 @@ extension RtkSettingViewController: RtkSelfEventListener {
                 dropDown.selectOption(index: currentSelectedDevice == .front ? 0 : 1)
             }
         }
-        return cameraDropDown
     }
 
     public func onAudioDevicesUpdated(devices: [AudioDevice]) {
@@ -281,7 +280,7 @@ extension RtkSettingViewController: RtkSelfEventListener {
     private func createAudioDropDown() -> RtkDropdown<RtkAudioPickerCellModel> {
         let audioDevices = meeting.localUser.getAudioDevices()
         let metaData = getSpeakerDropDownData(audioDevices: audioDevices)
-        let speakerDropDown = RtkDropdown(rightImage: RtkImage(image: ImageProvider.image(named: "icon_angle_arrow_down")), heading: "Speaker (output)", options: metaData.devicesModel, selectedIndex: UInt(metaData.selectedIndex)) { [weak self] dropDown in
+        return RtkDropdown(rightImage: RtkImage(image: ImageProvider.image(named: "icon_angle_arrow_down")), heading: "Speaker (output)", options: metaData.devicesModel, selectedIndex: UInt(metaData.selectedIndex)) { [weak self] dropDown in
             guard let self else { return }
             let metaData = getSpeakerDropDownData(audioDevices: audioDevices)
 
@@ -304,7 +303,6 @@ extension RtkSettingViewController: RtkSelfEventListener {
             }
             audioSelectionView = picker
         }
-        return speakerDropDown
     }
 
     private func toggleCamera(rtkClient: RealtimeKitClient, selectDevice: VideoDeviceType?) {

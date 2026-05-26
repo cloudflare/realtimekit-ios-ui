@@ -148,7 +148,7 @@ public protocol SetupViewControllerDelegate: AnyObject {
     func userJoinedMeetingSuccessfully(sender: UIViewController)
 }
 
-public class RtkSetupViewController: RtkBaseViewController, KeyboardObservable, SetupViewControllerDataSource {
+public class RtkSetupViewController: RtkBaseViewController, @preconcurrency KeyboardObservable, SetupViewControllerDataSource {
     var keyboardObserver: KeyboardObserver?
     let baseView: BaseView = .init()
     private var selfPeerView: RtkParticipantTileView!
@@ -156,26 +156,17 @@ public class RtkSetupViewController: RtkBaseViewController, KeyboardObservable, 
     public weak var delegate: SetupViewControllerDelegate?
     let btnsStackView: BaseStackView = RtkUIUtility.createStackView(axis: .horizontal, spacing: DesignLibrary.shared.space.space6)
 
-    lazy var btnMic: MicToggleButton = {
-        let button = MicToggleButton(meeting: self.rtkClient, alertController: self) { [weak self] _ in
-            guard let self else { return }
-            selfPeerView.nameTag.refresh()
-        }
-        return button
-    }()
+    lazy var btnMic: MicToggleButton = .init(meeting: self.rtkClient, alertController: self) { [weak self] _ in
+        guard let self else { return }
+        selfPeerView.nameTag.refresh()
+    }
 
-    lazy var btnVideo: VideoToggleButton = {
-        let button = VideoToggleButton(meeting: self.rtkClient, alertController: self) { [weak self] _ in
-            guard let self else { return }
-            loadSelfVideoView()
-        }
-        return button
-    }()
+    lazy var btnVideo: VideoToggleButton = .init(meeting: self.rtkClient, alertController: self) { [weak self] _ in
+        guard let self else { return }
+        loadSelfVideoView()
+    }
 
-    let btnSetting: RtkButton = {
-        let button = RtkButton(style: .iconOnly(icon: RtkImage(image: ImageProvider.image(named: "icon_setting"))), rtkButtonState: .active)
-        return button
-    }()
+    let btnSetting: RtkButton = .init(style: .iconOnly(icon: RtkImage(image: ImageProvider.image(named: "icon_setting"))), rtkButtonState: .active)
 
     let lblJoinAs: RtkLabel = RtkUIUtility.createLabel(text: "Join in as")
 
@@ -247,7 +238,7 @@ extension RtkSetupViewController {
     }
 }
 
-extension RtkSetupViewController: MeetingDelegate {
+extension RtkSetupViewController: @preconcurrency MeetingDelegate {
     func onMeetingInitCompleted() {
         setupUIAfterMeetingInit()
         let mediaPermission = rtkClient.localUser.permissions.media

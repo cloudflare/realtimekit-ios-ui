@@ -8,7 +8,7 @@
 import RealtimeKit
 import UIKit
 
-open class RtkBaseViewController: UIViewController, AdaptableUI {
+open class RtkBaseViewController: UIViewController, @preconcurrency AdaptableUI {
     let rtkSelfListener: RtkEventSelfListener!
     public let meeting: RealtimeKitClient
     private var waitingRoomView: WaitingRoomView?

@@ -155,44 +155,24 @@ public class MeetingViewController: RtkBaseMeetingViewController {
         viewModel.delegate = self
 
         viewModel.selfEventListener.observeSelfMeetingEndForAll { [weak self] _ in
-            guard let self else { return }
-
-            func showWaitingRoom(status: ParticipantMeetingStatus, time _: TimeInterval, onComplete: @escaping () -> Void) {
-                if status != .none {
-                    let waitingView = WaitingRoomView(automaticClose: true, onCompletion: onComplete)
-                    waitingView.backgroundColor = self.view.backgroundColor
-                    self.view.addSubview(waitingView)
-                    waitingView.set(.fillSuperView(self.view))
-                    self.view.endEditing(true)
-                    waitingView.show(status: status)
-                }
-            }
-            // self.dismiss(animated: true)
-            showWaitingRoom(status: .meetingEnded, time: 2) { [weak self] in
+            DispatchQueue.main.async {
                 guard let self else { return }
-                viewModel.clean()
-                onFinishedMeeting()
+                self.showWaitingRoomIfNeeded(status: .meetingEnded) { [weak self] in
+                    guard let self else { return }
+                    self.viewModel.clean()
+                    self.onFinishedMeeting()
+                }
             }
         }
 
         viewModel.selfEventListener.observeSelfRemoved { [weak self] _ in
-            guard let self else { return }
-
-            func showWaitingRoom(status: ParticipantMeetingStatus, time _: TimeInterval, onComplete: @escaping () -> Void) {
-                if status != .none {
-                    let waitingView = WaitingRoomView(automaticClose: true, onCompletion: onComplete)
-                    waitingView.backgroundColor = self.view.backgroundColor
-                    self.view.addSubview(waitingView)
-                    waitingView.set(.fillSuperView(self.view))
-                    self.view.endEditing(true)
-                    waitingView.show(status: status)
-                }
-            }
-            // self.dismiss(animated: true)
-            showWaitingRoom(status: .kicked, time: 2) { [weak self] in
+            DispatchQueue.main.async {
                 guard let self else { return }
-                viewModel.clean()
-                onFinishedMeeting()
+                self.showWaitingRoomIfNeeded(status: .kicked) { [weak self] in
+                    guard let self else { return }
+                    self.viewModel.clean()
+                    self.onFinishedMeeting()
+                }
             }
         }
         viewModel.selfEventListener.observePluginScreenShareTabSync(update: { id in
@@ -421,7 +401,7 @@ extension MeetingViewController {
 
 extension MeetingViewController: AVPictureInPictureControllerDelegate {}
 
-// Bottom bar related Methods
+/// Bottom bar related Methods
 extension MeetingViewController {
     private func createBottomBar() {
         bottomBar = dataSource?.getBottomTabbar(viewController: self) ?? getBottomBar()
@@ -628,7 +608,7 @@ private extension MeetingViewController {
     }
 }
 
-// TopBar related Methods
+/// TopBar related Methods
 extension MeetingViewController {
     private func createTopbar() {
         let topbar = RtkMeetingHeaderView(meeting: meeting)
@@ -659,7 +639,7 @@ extension MeetingViewController {
     }
 }
 
-extension MeetingViewController: MeetingViewModelDelegate {
+extension MeetingViewController: @preconcurrency MeetingViewModelDelegate {
     func newPollAdded(createdBy: String) {
         if Shared.data.notification.newPollArrived.showToast {
             view.showToast(toastMessage: "New poll created by \(createdBy)", duration: 2.0, uiBlocker: false)
@@ -865,6 +845,16 @@ extension MeetingViewController: MeetingViewModelDelegate {
         pluginScreenShareView.isHidden = true
     }
 
+    private func showWaitingRoomIfNeeded(status: ParticipantMeetingStatus, onComplete: @escaping @MainActor () -> Void) {
+        guard status != .none else { return }
+        let waitingView = WaitingRoomView(automaticClose: true, onCompletion: onComplete)
+        waitingView.backgroundColor = view.backgroundColor
+        view.addSubview(waitingView)
+        waitingView.set(.fillSuperView(view))
+        view.endEditing(true)
+        waitingView.show(status: status)
+    }
+
     private func showPinnedPluginView(show: Bool, animation: Bool) {
         showPinnedPluginViewAsPerOrientation(show: show)
         pluginPinnedScreenShareBaseView.isHidden = !show
@@ -933,7 +923,7 @@ extension MeetingViewController: MeetingViewModelDelegate {
     }
 }
 
-extension MeetingViewController: RtkNotificationDelegate {
+extension MeetingViewController: @preconcurrency RtkNotificationDelegate {
     public func didReceiveNotification(type: RtkNotificationType) {
         switch type {
         case let .Chat(message):
@@ -975,7 +965,7 @@ extension MeetingViewController: RtkNotificationDelegate {
     }
 }
 
-extension MeetingViewController: RtkLivestreamEventListener {
+extension MeetingViewController: @preconcurrency RtkLivestreamEventListener {
     public func onLivestreamError(message _: String) {}
 
     public func onLivestreamStateChanged(oldState _: RealtimeKit.LivestreamState, newState _: RealtimeKit.LivestreamState) {}
@@ -995,7 +985,7 @@ extension MeetingViewController: RtkLivestreamEventListener {
     public func onViewerCountUpdated(count _: Int32) {}
 }
 
-extension MeetingViewController: RtkChatEventListener {
+extension MeetingViewController: @preconcurrency RtkChatEventListener {
     public func onMessageRateLimitReset() {}
 
     public func onChatUpdates(messages _: [ChatMessage]) {}
@@ -1028,7 +1018,7 @@ extension MeetingViewController: RtkChatEventListener {
     }
 }
 
-// Notification Related Methods
+/// Notification Related Methods
 extension MeetingViewController {
     func setupNotifications() {
         meeting.addChatEventListener(chatEventListener: self)

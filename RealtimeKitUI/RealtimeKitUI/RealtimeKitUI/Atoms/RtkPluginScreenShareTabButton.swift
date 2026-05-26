@@ -23,10 +23,7 @@ public class NextPreviousButtonView: UIView {
 
     public var autolayoutModeEnable = true
 
-    let autoLayoutImageView: BaseImageView = {
-        let imageView = RtkUIUtility.createImageView(image: RtkImage(image: ImageProvider.image(named: "icon_topbar_autolayout")))
-        return imageView
-    }()
+    let autoLayoutImageView: BaseImageView = RtkUIUtility.createImageView(image: RtkImage(image: ImageProvider.image(named: "icon_topbar_autolayout")))
 
     convenience init() {
         self.init(firsButtonImage: RtkImage(image: ImageProvider.image(named: "icon_left_arrow")), secondButtonImage: RtkImage(image: ImageProvider.image(named: "icon_right_arrow")))
