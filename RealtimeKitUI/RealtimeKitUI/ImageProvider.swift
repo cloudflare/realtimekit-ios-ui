@@ -8,7 +8,7 @@
 import UIKit
 
 public class ImageProvider {
-    // for any image located in bundle where this class has built
+    /// for any image located in bundle where this class has built
     public static func image(named: String) -> UIImage? {
         UIImage(named: named, in: Bundle.resources, with: nil)
     }
@@ -39,17 +39,17 @@ public class FileDownloader {
 final class ImageUtil {
     var session = URLSession(configuration: .default)
     var cache: NSCache<NSString, UIImage>!
-    static let shared = ImageUtil()
+    nonisolated(unsafe) static let shared = ImageUtil()
     private init() {
         session = URLSession.shared
         cache = NSCache()
     }
 
-    func obtainImageWithPath(url: URL, completionHandler: @escaping (UIImage, URL) -> Void) -> (UIImage?, URLSessionTask?) {
+    func obtainImageWithPath(url: URL, completionHandler: @escaping @Sendable (UIImage, URL) -> Void) -> (UIImage?, URLSessionTask?) {
         obtainImageWithPath(imagePath: url.absoluteString, completionHandler: completionHandler)
     }
 
-    func obtainImageWithPath(imagePath: String, completionHandler: @escaping (UIImage, URL) -> Void) -> (UIImage?, URLSessionTask?) {
+    func obtainImageWithPath(imagePath: String, completionHandler: @escaping @Sendable (UIImage, URL) -> Void) -> (UIImage?, URLSessionTask?) {
         if let image = cache.object(forKey: imagePath as NSString) {
             return (image, nil)
         } else {

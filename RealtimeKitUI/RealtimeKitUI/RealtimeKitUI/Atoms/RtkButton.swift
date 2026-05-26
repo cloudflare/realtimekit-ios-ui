@@ -283,7 +283,7 @@ open class RtkButton: UIButton, BaseAtom {
     }
 }
 
-extension RtkButton: RtkButtonApplyStyle {
+extension RtkButton: @preconcurrency RtkButtonApplyStyle {
     func applyStyle(style: Style) {
         // MARK: You can't apply any style, We want to check first what is the style in which button is created for eg. If button is created in Text style then we can't apply icon style on it. Instead we can apply solid, line and text interchangeably.
 
@@ -357,7 +357,7 @@ extension RtkButton: RtkButtonApplyStyle {
     }
 }
 
-extension RtkButton: RtkButtonApplyStates {
+extension RtkButton: @preconcurrency RtkButtonApplyStates {
     func applyState(state: States) {
         let currentStyle = style
         if case .solid = currentStyle {

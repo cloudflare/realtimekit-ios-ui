@@ -20,7 +20,7 @@ public class DesignLibrary: RtkDesignTokens {
     public var borderSize: BorderWidthToken
     public var borderRadius: BorderRadiusToken
 
-    public static let shared: DesignLibrary = .init()
+    public nonisolated(unsafe) static let shared: DesignLibrary = .init()
 
     private init() {
         let configurator = DesignLibraryConfigurator()
@@ -121,18 +121,15 @@ class AppThemeConfigurator: AppThemeProtocol {
     var designLibrary: RtkDesignTokens
 
     var controlBarButtonAppearance: RtkControlBarButtonAppearance {
-        let model = RtkControlBarButtonAppearanceModel(designLibrary: designLibrary)
-        return model
+        RtkControlBarButtonAppearanceModel(designLibrary: designLibrary)
     }
 
     var buttonAppearance: RtkButtonAppearance {
-        let model = RtkButtonAppearanceModel(designLibrary: designLibrary)
-        return model
+        RtkButtonAppearanceModel(designLibrary: designLibrary)
     }
 
     var nameTagAppearance: RtkNameTagAppearance {
-        let model = RtkNameTagAppearanceModel(designLibrary: designLibrary)
-        return model
+        RtkNameTagAppearanceModel(designLibrary: designLibrary)
     }
 
     var clockViewAppearance: RtkTextAppearance {
@@ -217,7 +214,7 @@ class AppThemeConfigurator: AppThemeProtocol {
 }
 
 public class AppTheme {
-    public static let shared: AppTheme = .init(designTokens: DesignLibrary.shared)
+    public nonisolated(unsafe) static let shared: AppTheme = .init(designTokens: DesignLibrary.shared)
     public var cornerRadiusTypePaginationView: BorderRadiusToken.RadiusType?
     public var cornerRadiusTypePeerView: BorderRadiusToken.RadiusType?
     public var cornerRadiusTypeDropDown: BorderRadiusToken.RadiusType?

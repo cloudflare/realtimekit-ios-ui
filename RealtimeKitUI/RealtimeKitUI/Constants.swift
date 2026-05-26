@@ -16,7 +16,7 @@ enum Constants {
 }
 
 class Shared {
-    static let data = Shared()
+    nonisolated(unsafe) static let data = Shared()
     private var chatReadCount: Int = 0
     private var viewedPollCount: Int = 0
     var delegate: RealtimeKitUILifeCycle?

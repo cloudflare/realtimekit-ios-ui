@@ -8,6 +8,7 @@
 import RealtimeKit
 import UIKit
 
+@MainActor
 public class RtkLeaveDialog {
     public static let onEndMeetingForAllButtonPress: Notification.Name = .init("onEndMeetingForAllButtonPress")
     public enum RtkLeaveDialogAlertButtonType {

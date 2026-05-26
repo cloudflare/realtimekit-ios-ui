@@ -10,11 +10,8 @@ import RealtimeKit
 import UIKit
 import UniformTypeIdentifiers
 
-public class RtkChatViewController: RtkBaseViewController, NSTextStorageDelegate, SetTopbar {
-    public let topBar: RtkNavigationBar = {
-        let topBar = RtkNavigationBar(title: "Chat")
-        return topBar
-    }()
+public class RtkChatViewController: RtkBaseViewController, NSTextStorageDelegate, @preconcurrency SetTopbar {
+    public let topBar: RtkNavigationBar = .init(title: "Chat")
 
     // MARK: - Properties
 
@@ -796,7 +793,7 @@ extension RtkChatViewController: UITextViewDelegate {
     }
 }
 
-extension RtkChatViewController: ChatParticipantSelectionDelegate {
+extension RtkChatViewController: @preconcurrency ChatParticipantSelectionDelegate {
     func didSelectChat(withParticipant participant: RtkRemoteParticipant?) {
         if let remoteParticipant = participant {
             selectedParticipant = remoteParticipant
@@ -836,7 +833,7 @@ extension RtkChatViewController: ChatParticipantSelectionDelegate {
     }
 }
 
-extension RtkChatViewController: RtkChatEventListener {
+extension RtkChatViewController: @preconcurrency RtkChatEventListener {
     public func onMessageRateLimitReset() {
         enableMessageRateLimiting = false
         timerCoolOfTimeForSendMessage?.invalidate()
@@ -974,7 +971,7 @@ extension UITextView {
     }
 }
 
-extension UITextView: NSTextStorageDelegate {
+extension UITextView: @retroactive @preconcurrency NSTextStorageDelegate {
     public func textStorage(_: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions, range _: NSRange, changeInLength _: Int) {
         if editedMask.contains(.editedCharacters) {
             placeholderLabel.isHidden = !text.isEmpty

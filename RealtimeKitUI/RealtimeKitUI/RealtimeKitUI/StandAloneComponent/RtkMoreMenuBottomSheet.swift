@@ -9,6 +9,7 @@ import RealtimeKit
 import ReplayKit
 import UIKit
 
+@MainActor
 class RtkMoreMenuBottomSheet {
     private let presentingViewController: UIViewController
     private let settingViewControllerCompletion: (() -> Void)?
@@ -128,11 +129,19 @@ private extension RtkMoreMenuBottomSheet {
     }
 
     private func onScreenShareTapped() {
-        meeting.localUser.enableScreenShare()
+        meeting.localUser.enableScreenShare(onResult: { error in
+            if let error {
+                print("RtkMoreMenuBottomSheet: enableScreenShare failed: \(error)")
+            }
+        })
     }
 
     private func onStopScreenShareTapped() {
-        meeting.localUser.disableScreenShare()
+        meeting.localUser.disableScreenShare(onResult: { error in
+            if let error {
+                print("RtkMoreMenuBottomSheet: disableScreenShare failed: \(error)")
+            }
+        })
     }
 
     private func onPluginTapped() {

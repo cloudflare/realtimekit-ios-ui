@@ -210,7 +210,7 @@ public class ScreenShareModel: ScreenSharePluginsProtocol {
     }
 }
 
-var notificationDelegate: RtkNotificationDelegate?
+nonisolated(unsafe) var notificationDelegate: RtkNotificationDelegate?
 
 public final class MeetingViewModel {
     private let rtkClient: RealtimeKitClient
@@ -536,12 +536,6 @@ extension MeetingViewModel: RtkPluginsEventListener {
     }
 
     public func onPluginFileRequest(plugin _: RtkPlugin) {}
-
-    public func onPluginMessage(message _: [String: Kotlinx_serialization_jsonJsonElement]) {
-        if isDebugModeOn {
-            print("Debug RtkUIKit | Delegate onPluginMessage(")
-        }
-    }
 }
 
 extension MeetingViewModel: RtkSelfEventListener {

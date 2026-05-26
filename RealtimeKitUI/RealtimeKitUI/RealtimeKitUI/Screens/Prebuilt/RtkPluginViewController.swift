@@ -47,10 +47,7 @@ public class RtkPluginViewController: UIViewController {
         pluginTableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(pluginTableView)
 
-        let leftButton: RtkControlBarButton = {
-            let button = RtkControlBarButton(image: RtkImage(image: ImageProvider.image(named: "icon_cross")))
-            return button
-        }()
+        let leftButton = RtkControlBarButton(image: RtkImage(image: ImageProvider.image(named: "icon_cross")))
         leftButton.backgroundColor = navigationItem.backBarButtonItem?.tintColor
         leftButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         let customBarButtonItem = UIBarButtonItem(customView: leftButton)

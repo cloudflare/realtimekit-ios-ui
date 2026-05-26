@@ -55,7 +55,7 @@ class OnStageWaitingRequestTableViewCell: BaseParticipantWaitingTableViewCell {
     private var viewModel: OnStageParticipantWaitingRequestTableViewCellModel?
 }
 
-extension OnStageWaitingRequestTableViewCell: ConfigureView {
+extension OnStageWaitingRequestTableViewCell: @preconcurrency ConfigureView {
     var model: OnStageParticipantWaitingRequestTableViewCellModel {
         if let model = viewModel {
             return model
@@ -72,7 +72,7 @@ extension OnStageWaitingRequestTableViewCell: ConfigureView {
     }
 }
 
-extension ParticipantWaitingTableViewCell: ConfigureView {
+extension ParticipantWaitingTableViewCell: @preconcurrency ConfigureView {
     var model: ParticipantWaitingTableViewCellModel {
         if let model = viewModel {
             return model

@@ -8,10 +8,7 @@
 import UIKit
 
 class TitleTableViewCell: BaseTableViewCell {
-    let lblTitle = {
-        let lblTitle = RtkUIUtility.createLabel()
-        return lblTitle
-    }()
+    let lblTitle = RtkUIUtility.createLabel()
 
     private var viewModel: TitleTableViewCellModel?
 
@@ -45,7 +42,7 @@ struct TitleTableViewCellModel: BaseModel {
     func clean() {}
 }
 
-extension TitleTableViewCell: ConfigureView {
+extension TitleTableViewCell: @preconcurrency ConfigureView {
     var model: TitleTableViewCellModel {
         if let model = viewModel {
             return model
@@ -80,10 +77,7 @@ class RejectButtonTableViewCell: ButtonTableViewCell {
 class RejectButtonJoinStageRequestTableViewCell: RejectButtonTableViewCell {}
 
 class ButtonTableViewCell: BaseTableViewCell {
-    let button = {
-        let button = RtkButton()
-        return button
-    }()
+    let button = RtkButton()
 
     var buttonClick: ((RtkButton) -> Void)?
     private var viewModel: ButtonTableViewCellModel?
@@ -124,7 +118,7 @@ struct ButtonTableViewCellModel: BaseModel {
     func clean() {}
 }
 
-extension ButtonTableViewCell: ConfigureView {
+extension ButtonTableViewCell: @preconcurrency ConfigureView {
     var model: ButtonTableViewCellModel {
         if let model = viewModel {
             return model
@@ -180,7 +174,7 @@ class SearchTableViewCell: BaseTableViewCell {
     }
 }
 
-extension SearchTableViewCell: ConfigureView {
+extension SearchTableViewCell: @preconcurrency ConfigureView {
     var model: SearchTableViewCellModel {
         if let model = viewModel {
             return model

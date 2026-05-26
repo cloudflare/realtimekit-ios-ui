@@ -8,7 +8,7 @@
 import RealtimeKit
 import UIKit
 
-public class WebinarParticipantViewController: UIViewController, SetTopbar, KeyboardObservable {
+public class WebinarParticipantViewController: UIViewController, @preconcurrency SetTopbar, @preconcurrency KeyboardObservable {
     public var shouldShowTopBar: Bool = true
     let tableView = UITableView()
     let viewModel: WebinarParticipantViewControllerModel
@@ -17,10 +17,7 @@ public class WebinarParticipantViewController: UIViewController, SetTopbar, Keyb
 
     private var searchController: SearchViewController?
 
-    public let topBar: RtkNavigationBar = {
-        let topBar = RtkNavigationBar(title: "Participants")
-        return topBar
-    }()
+    public let topBar: RtkNavigationBar = .init(title: "Participants")
 
     public init(viewModel: WebinarParticipantViewControllerModel) {
         self.viewModel = viewModel
@@ -100,6 +97,7 @@ public class WebinarParticipantViewController: UIViewController, SetTopbar, Keyb
         tableView.register(WebinarViewersTableViewCell.self)
         tableView.register(AcceptButtonWaitingTableViewCell.self)
         tableView.register(AcceptButtonJoinStageRequestTableViewCell.self)
+        tableView.register(RejectButtonTableViewCell.self)
         tableView.register(RejectButtonJoinStageRequestTableViewCell.self)
         tableView.register(TitleTableViewCell.self)
         tableView.register(SearchTableViewCell.self)
@@ -246,6 +244,12 @@ extension WebinarParticipantViewController: UITableViewDataSource {
                 button.showActivityIndicator()
                 viewModel.rejectAll()
                 button.hideActivityIndicator()
+                reloadScreen()
+            }
+        } else if let cell = cell as? RejectButtonTableViewCell {
+            cell.buttonClick = { [weak self] _ in
+                guard let self else { return }
+                viewModel.rejectAllWaitingRoomRequests()
                 reloadScreen()
             }
         }

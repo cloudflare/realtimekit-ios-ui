@@ -8,7 +8,7 @@
 import QuickLook
 import UIKit
 
-class DocumentsViewController: UIViewController, QLPreviewControllerDataSource, QLPreviewControllerDelegate {
+class DocumentsViewController: UIViewController, QLPreviewControllerDataSource, @preconcurrency QLPreviewControllerDelegate {
     private let documentURL: URL
     private let previewController = QLPreviewController()
     var downloadFinishAction: (() -> Void)?

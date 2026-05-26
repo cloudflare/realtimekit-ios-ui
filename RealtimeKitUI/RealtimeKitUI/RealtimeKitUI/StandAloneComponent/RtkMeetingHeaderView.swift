@@ -30,10 +30,7 @@ open class RtkMeetingHeaderView: UIView {
         return label
     }()
 
-    private lazy var recordingView: RtkRecordingView = {
-        let view = RtkRecordingView(meeting: self.meeting, title: "Rec", image: nil, appearance: AppTheme.shared.recordingViewAppearance)
-        return view
-    }()
+    private lazy var recordingView: RtkRecordingView = .init(meeting: self.meeting, title: "Rec", image: nil, appearance: AppTheme.shared.recordingViewAppearance)
 
     private let meeting: RealtimeKitClient
 

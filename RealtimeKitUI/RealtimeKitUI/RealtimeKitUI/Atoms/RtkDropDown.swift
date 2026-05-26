@@ -16,10 +16,7 @@ public class RtkDropdown<Model: PickerCellModel>: UIView {
 
     let spaceToken = DesignLibrary.shared.space
 
-    fileprivate var lblTitle: RtkLabel = {
-        let lbl = RtkUIUtility.createLabel(text: "", alignment: .left)
-        return lbl
-    }()
+    fileprivate var lblTitle: RtkLabel = RtkUIUtility.createLabel(text: "", alignment: .left)
 
     let lblHeader: RtkLabel = RtkUIUtility.createLabel(text: "", alignment: .left)
     let lblError: RtkLabel = RtkUIUtility.createLabel(text: "", alignment: .left)

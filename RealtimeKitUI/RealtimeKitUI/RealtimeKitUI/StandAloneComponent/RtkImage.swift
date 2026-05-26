@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct RtkImage {
+public struct RtkImage: Sendable {
     public var image: UIImage?
     public var url: URL?
     public init(image: UIImage? = nil, url: URL? = nil) {

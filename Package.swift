@@ -1,16 +1,16 @@
-// swift-tools-version:5.5
+// swift-tools-version: 6.2
 import PackageDescription
 
 let package = Package(
     name: "RealtimeKitUI",
-    platforms: [.iOS(.v13)],
+    platforms: [.iOS(.v16)],
     products: [
         .library(name: "RealtimeKitUI", targets: ["RealtimeKitUI"]),
     ],
     dependencies: [
         .package(
             url: "https://github.com/cloudflare/realtimekit-ios-core.git",
-            from: "2.0.0"
+            from: "2.1.0"
         ),
     ],
     targets: [

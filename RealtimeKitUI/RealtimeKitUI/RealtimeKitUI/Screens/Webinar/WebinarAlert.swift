@@ -8,7 +8,7 @@
 import RealtimeKit
 import UIKit
 
-public class RtkWebinarAlertView: UIView, ConfigureWebinerAlertView, AdaptableUI {
+public class RtkWebinarAlertView: UIView, ConfigureWebinerAlertView, @preconcurrency AdaptableUI {
     private let btnMic: RtkButton = {
         let button = RtkButton(style: .iconOnly(icon: RtkImage(image: ImageProvider.image(named: "icon_mic_enabled"))), rtkButtonState: .active)
         button.normalStateTintColor = DesignLibrary.shared.color.textColor.onBackground.shade1000
@@ -53,10 +53,7 @@ public class RtkWebinarAlertView: UIView, ConfigureWebinerAlertView, AdaptableUI
     public var portraitConstraints = [NSLayoutConstraint]()
     public var landscapeConstraints = [NSLayoutConstraint]()
 
-    public let confirmAndJoinButton: RtkButton = {
-        let button = RtkUIUtility.createButton(text: "Confirm & join stage")
-        return button
-    }()
+    public let confirmAndJoinButton: RtkButton = RtkUIUtility.createButton(text: "Confirm & join stage")
 
     public let cancelButton: RtkButton = {
         let button = RtkUIUtility.createButton(text: "Cancel")

@@ -9,7 +9,7 @@ import RealtimeKit
 import UIKit
 
 open class RtkNavigationBar: UIView {
-    private var previousButtonClick: ((RtkControlBarButton) -> Void)?
+    private var previousButtonClick: (@MainActor (RtkControlBarButton) -> Void)?
     private let tokenTextColorToken = DesignLibrary.shared.color.textColor
     private let tokenSpace = DesignLibrary.shared.space
     let backgroundColorValue = DesignLibrary.shared.color.background.shade900
@@ -51,7 +51,7 @@ open class RtkNavigationBar: UIView {
         leftButton.backgroundColor = backgroundColor
     }
 
-    public func setBackButtonClick(callBack: @escaping (RtkControlBarButton) -> Void) {
+    public func setBackButtonClick(callBack: @escaping @MainActor (RtkControlBarButton) -> Void) {
         previousButtonClick = callBack
     }
 

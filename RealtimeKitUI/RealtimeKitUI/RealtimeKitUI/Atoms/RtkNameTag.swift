@@ -100,10 +100,7 @@ public class RtkNameTag: BaseAtomView {
         imageView.get(.height)?.constant = newHeight
     }
 
-    private var labelStackView: BaseStackView = {
-        let stackView = RtkUIUtility.createStackView(axis: .vertical, distribution: .fillEqually, spacing: 4.0)
-        return stackView
-    }()
+    private var labelStackView: BaseStackView = RtkUIUtility.createStackView(axis: .vertical, distribution: .fillEqually, spacing: 4.0)
 
     private let image: RtkImage
     private let titleText: String

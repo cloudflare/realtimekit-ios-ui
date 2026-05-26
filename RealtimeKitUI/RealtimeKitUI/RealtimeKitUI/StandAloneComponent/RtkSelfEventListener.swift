@@ -8,8 +8,8 @@
 import RealtimeKit
 import UIKit
 
-public class RtkEventSelfListener {
-    private static var currentInstance = 0
+public class RtkEventSelfListener: @unchecked Sendable {
+    private nonisolated(unsafe) static var currentInstance = 0
     public enum Reconnection {
         case start
         case success

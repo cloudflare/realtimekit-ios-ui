@@ -8,10 +8,11 @@
 import RealtimeKit
 import UIKit
 
-public let rtkSharedTokenColor = DesignLibrary.shared.color
+public nonisolated(unsafe) let rtkSharedTokenColor = DesignLibrary.shared.color
 
-public let rtkSharedTokenSpace = DesignLibrary.shared.space
+public nonisolated(unsafe) let rtkSharedTokenSpace = DesignLibrary.shared.space
 
+@MainActor
 public class ParticipantViewControllerFactory {
     public static func getLivestreamParticipantViewController(meeting: RealtimeKitClient) -> ParticipantViewController {
         ParticipantViewController(viewModel: LiveParticipantViewControllerModel(meeting: meeting))
@@ -22,7 +23,7 @@ public class ParticipantViewControllerFactory {
     }
 }
 
-public class ParticipantViewController: RtkBaseViewController, SetTopbar, KeyboardObservable {
+public class ParticipantViewController: RtkBaseViewController, @preconcurrency SetTopbar, @preconcurrency KeyboardObservable {
     public var shouldShowTopBar: Bool = true
     let tableView = UITableView()
     let viewModel: ParticipantViewControllerModelProtocol
@@ -31,10 +32,7 @@ public class ParticipantViewController: RtkBaseViewController, SetTopbar, Keyboa
     private let isDebugModeOn = RealtimeKitUI.isDebugModeOn
     private var searchController: SearchViewController?
 
-    public let topBar: RtkNavigationBar = {
-        let topBar = RtkNavigationBar(title: "Participants")
-        return topBar
-    }()
+    public let topBar: RtkNavigationBar = .init(title: "Participants")
 
     init(viewModel: ParticipantViewControllerModelProtocol) {
         self.viewModel = viewModel

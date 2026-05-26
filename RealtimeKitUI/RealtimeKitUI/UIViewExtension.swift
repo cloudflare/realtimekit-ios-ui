@@ -200,8 +200,7 @@ extension Bundle {
         #if SWIFT_PACKAGE
             return Bundle.module
         #else
-            let bundle = Bundle(for: ImageProvider.self)
-            return bundle
+            return Bundle(for: ImageProvider.self)
         #endif
     }()
 }
@@ -271,8 +270,6 @@ extension RtkLabel {
         let boundingRect = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: textAttributes, context: nil)
         let requiredHeight = ceil(boundingRect.height)
         // Calculate the number of lines needed
-        let numberOfLines = Int(requiredHeight / singleLineHeight)
-
-        return numberOfLines
+        return Int(requiredHeight / singleLineHeight)
     }
 }

@@ -25,7 +25,7 @@ public protocol SetTopbar {
 }
 
 extension SetTopbar where Self: UIViewController {
-    func addTopBar(dismissAnimation: Bool, completion: (() -> Void)? = nil) {
+    func addTopBar(dismissAnimation: Bool, completion: (@MainActor () -> Void)? = nil) {
         view.addSubview(topBar)
         if shouldShowTopBar {
             topBar.setBackButtonClick { [weak self] _ in

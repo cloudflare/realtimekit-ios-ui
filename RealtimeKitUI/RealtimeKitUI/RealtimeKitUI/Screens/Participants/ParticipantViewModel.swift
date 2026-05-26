@@ -143,7 +143,9 @@ public class ParticipantViewControllerModel: ParticipantViewControllerModelProto
         meeting.participants.acceptAllWaitingRoomRequests()
     }
 
-    func rejectAll() {}
+    func rejectAll() {
+        meeting.participants.rejectAllWaitingRoomRequests()
+    }
 
     private func participantLeave(participant _: RtkMeetingParticipant) {
         if let completion {
@@ -228,6 +230,7 @@ extension ParticipantViewControllerModel {
 
             if waitListedParticipants.count > 1, showAcceptAllButton {
                 sectionOne.insert(TableItemConfigurator<AcceptButtonTableViewCell, ButtonTableViewCellModel>(model: ButtonTableViewCellModel(buttonTitle: "Accept All")))
+                sectionOne.insert(TableItemConfigurator<RejectButtonTableViewCell, ButtonTableViewCellModel>(model: ButtonTableViewCellModel(buttonTitle: "Deny All", titleColor: rtkSharedTokenColor.status.danger)))
             }
         }
         return sectionOne

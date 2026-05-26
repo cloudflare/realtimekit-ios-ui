@@ -152,7 +152,7 @@ extension RtkVideoView {
     }
 }
 
-extension RtkVideoView: RtkParticipantUpdateListener {
+extension RtkVideoView: @preconcurrency RtkParticipantUpdateListener {
     public func onAudioUpdate(participant _: RtkMeetingParticipant, isEnabled _: Bool) {}
 
     public func onPinned(participant _: RtkMeetingParticipant) {}
