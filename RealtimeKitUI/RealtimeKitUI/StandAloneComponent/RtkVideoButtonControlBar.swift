@@ -22,6 +22,7 @@ open class RtkVideoButtonControlBar: RtkControlBarButton {
         isSelected = !rtkClient.localUser.videoEnabled
         rtkSelfListener.observeSelfVideo { [weak self] enabled in
             guard let self else { return }
+            isEnabled = true
             isSelected = !enabled
         }
     }
@@ -42,13 +43,15 @@ open class RtkVideoButtonControlBar: RtkControlBarButton {
     }
 
     @objc open func onClick(button: RtkControlBarButton) {
-        if rtkSelfListener.isCameraPermissionGranted() {
-            button.showActivityIndicator()
-            rtkSelfListener.toggleLocalVideo(completion: { enableVideo in
-                button.isSelected = !enableVideo
-                button.hideActivityIndicator()
-            })
-        }
+        button.showActivityIndicator()
+        rtkSelfListener.toggleLocalVideo(completion: { [weak button] enableVideo in
+            button?.isEnabled = true
+            button?.isSelected = !enableVideo
+            button?.hideActivityIndicator()
+        }, onPermissionDenied: { [weak button] in
+            button?.hideActivityIndicator()
+            button?.isEnabled = false
+        })
     }
 
     deinit {
