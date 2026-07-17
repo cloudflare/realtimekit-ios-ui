@@ -25,6 +25,7 @@ open class RtkAudioButtonControlBar: RtkControlBarButton {
 
         rtkSelfListener.observeSelfAudio { [weak self] enabled in
             guard let self else { return }
+            isEnabled = true
             isSelected = !enabled
         }
     }
@@ -45,15 +46,17 @@ open class RtkAudioButtonControlBar: RtkControlBarButton {
     }
 
     @objc open func onClick(button: RtkAudioButtonControlBar) {
-        if rtkSelfListener.isMicrophonePermissionGranted() {
-            button.showActivityIndicator()
-            accessibilityIdentifier = "ControlBar_Audio_"
-            rtkSelfListener.toggleLocalAudio(completion: { enableAudio in
-                button.hideActivityIndicator()
-                button.isSelected = !enableAudio
-                self.onClick?(button)
-            })
-        }
+        button.showActivityIndicator()
+        accessibilityIdentifier = "ControlBar_Audio_"
+        rtkSelfListener.toggleLocalAudio(completion: { [weak self, weak button] enableAudio in
+            button?.isEnabled = true
+            button?.hideActivityIndicator()
+            button?.isSelected = !enableAudio
+            if let button { self?.onClick?(button) }
+        }, onPermissionDenied: { [weak button] in
+            button?.hideActivityIndicator()
+            button?.isEnabled = false
+        })
     }
 
     deinit {

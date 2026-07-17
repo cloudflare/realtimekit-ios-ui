@@ -10,7 +10,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/cloudflare/realtimekit-ios-core.git",
-            from: "3.0.0"
+            from: "3.1.0"
         ),
     ],
     targets: [

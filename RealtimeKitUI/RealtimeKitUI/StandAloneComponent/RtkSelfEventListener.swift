@@ -57,12 +57,19 @@ public class RtkEventSelfListener {
 
     private let isDebugModeOn = RealtimeKitUI.isDebugModeOn
 
-    public func toggleLocalAudio(completion: @escaping (_ isEnabled: Bool) -> Void) {
+    public func toggleLocalAudio(
+        completion: @escaping (_ isEnabled: Bool) -> Void,
+        onPermissionDenied: (() -> Void)? = nil
+    ) {
         selfAudioStateCompletion = completion
         if rtkClient.localUser.audioEnabled == true {
             rtkClient.localUser.disableAudio { _ in }
         } else {
-            rtkClient.localUser.enableAudio { _ in }
+            rtkClient.localUser.enableAudio { (error: AudioError?) in
+                if error?.code == .devicePermissionDenied {
+                    onPermissionDenied?()
+                }
+            }
         }
     }
 
@@ -90,12 +97,19 @@ public class RtkEventSelfListener {
         selfObserveReconnectionStateCompletion = update
     }
 
-    public func toggleLocalVideo(completion: @escaping (_ isEnabled: Bool) -> Void) {
+    public func toggleLocalVideo(
+        completion: @escaping (_ isEnabled: Bool) -> Void,
+        onPermissionDenied: (() -> Void)? = nil
+    ) {
         selfVideoStateCompletion = completion
         if rtkClient.localUser.videoEnabled == true {
             rtkClient.localUser.disableVideo { _ in }
         } else {
-            rtkClient.localUser.enableVideo { _ in }
+            rtkClient.localUser.enableVideo { (error: VideoError?) in
+                if error?.code == .devicePermissionDenied {
+                    onPermissionDenied?()
+                }
+            }
         }
     }
 
